@@ -1,0 +1,20 @@
+<resources>
+    
+    <!-- Base simple dialog -->
+    <dimen name="base_simple_dialog_width">300dp</dimen>
+    <dimen name="base_simple_dialog_height">180dp</dimen>
+    <dimen name="base_simple_dialog_title_height">48dp</dimen>
+    <dimen name="base_simple_dialog_title_padding_h">10dp</dimen>
+    <dimen name="base_simple_dialog_title_text_size">18sp</dimen>
+    <dimen name="base_simple_dialog_key_height">48dp</dimen>
+    <dimen name="base_simple_dialog_key_text_size">18sp</dimen>
+
+    <!-- Edit dialog -->
+    <dimen name="edit_dialog_container_width">270dp</dimen>
+    <dimen name="edit_dialog_container_height">45dp</dimen>
+
+    <!-- Password input dialog -->
+    <dimen name="password_input_dialog_container_width">270dp</dimen>
+    <dimen name="password_input_dialog_container_height">45dp</dimen>
+
+</resources>

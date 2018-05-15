@@ -1,0 +1,30 @@
+<resources>
+
+    <style name="AnimationScaleAlpha" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_scale_alpha_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_scale_alpha_out</item>
+    </style>
+
+    <style name="AnimationTranBottom" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_translate_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_translate_bottom_out</item>
+    </style>
+
+    <style name="DialogTheme" parent="android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="AnimationScaleAlphaDialog" parent="DialogTheme">
+        <item name="android:windowAnimationStyle">@style/AnimationScaleAlpha</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="AnimationTranBottomDialog" parent="DialogTheme">
+        <item name="android:windowAnimationStyle">@style/AnimationTranBottom</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+</resources>
