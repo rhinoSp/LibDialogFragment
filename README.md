@@ -1,6 +1,9 @@
 # LibDialogFragment
 The library of DialogFragment.
 
+# Screenshot
+![](https://github.com/rhinoSp/LibDialogFragment/blob/master/screenshot/screenshot.gif)  
+
 # How to
 To get a Git project into your build:
 
