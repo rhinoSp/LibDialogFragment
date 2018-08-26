@@ -9,8 +9,8 @@ import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.rhino.dialog.R;
 import com.rhino.dialog.base.BaseSimpleDialogFragment;
@@ -83,14 +83,35 @@ public class PwdInputDialogFragment extends BaseSimpleDialogFragment {
      */
     private PwdInputEditText mPwdInputEditText;
 
+    /**
+     * the width of pwd
+     */
+    private int mPwdWidth;
+
+    /**
+     * the height of pwd
+     */
+    private int mPwdHeight;
+
+    public PwdInputDialogFragment() {
+        setTitle("Input password");
+        setTitleBottomLineColor(0x2A000000);
+        setKeyTopLineColor(0x2A000000);
+        setKeyCenterLineColor(0x2A000000);
+    }
+
     @Override
     protected void setContent() {
         LinearLayout mLinearLayout = new LinearLayout(getActivity());
         mLinearLayout.setGravity(Gravity.CENTER);
 
-        int width = (int) getActivity().getResources().getDimension(R.dimen.password_input_dialog_container_width);
-        int height = (int) getActivity().getResources().getDimension(R.dimen.password_input_dialog_container_height);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(width, height);
+        if (mPwdWidth == 0) {
+            mPwdWidth = (int) getActivity().getResources().getDimension(R.dimen.password_input_dialog_container_width);
+        }
+        if (mPwdHeight == 0) {
+            mPwdHeight = (int) getActivity().getResources().getDimension(R.dimen.password_input_dialog_container_height);
+        }
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(mPwdWidth, mPwdHeight);
 
         mPwdInputEditText = new PwdInputEditText(getActivity());
         mPwdInputEditText.setLayoutParams(lp);
@@ -108,11 +129,6 @@ public class PwdInputDialogFragment extends BaseSimpleDialogFragment {
 
     @Override
     protected void initView() {
-        setTitle("Input password");
-        setTitleBottomLineColor(0x2A000000);
-        setKeyTopLineColor(0x2A000000);
-        setKeyCenterLineColor(0x2A000000);
-
         mPwdInputEditText.setInputType(mInputType);
         mPwdInputEditText.setMaxLength(mMaxLength);
         mPwdInputEditText.setTextSize(mEditTextSize);
@@ -127,7 +143,6 @@ public class PwdInputDialogFragment extends BaseSimpleDialogFragment {
         } else {
             mPwdInputEditText.setShowPassword(mIsShowPwd);
         }
-
     }
 
     @Override
@@ -139,6 +154,34 @@ public class PwdInputDialogFragment extends BaseSimpleDialogFragment {
     @Nullable
     public PwdInputEditText getEditText() {
         return mPwdInputEditText;
+    }
+
+    /**
+     * Set the width of pwd
+     *
+     * @param mPwdWidth the width of pwd
+     */
+    public PwdInputDialogFragment setPwdWidth(int mPwdWidth) {
+        this.mPwdWidth = mPwdWidth;
+        if (null != mPwdInputEditText) {
+            ViewGroup.LayoutParams lp = mPwdInputEditText.getLayoutParams();
+            lp.width = mPwdWidth;
+        }
+        return this;
+    }
+
+    /**
+     * Set the height of pwd
+     *
+     * @param mPwdHeight the height of pwd
+     */
+    public PwdInputDialogFragment setPwdHeight(int mPwdHeight) {
+        this.mPwdHeight = mPwdHeight;
+        if (null != mPwdInputEditText) {
+            ViewGroup.LayoutParams lp = mPwdInputEditText.getLayoutParams();
+            lp.height = mPwdHeight;
+        }
+        return this;
     }
 
     /**

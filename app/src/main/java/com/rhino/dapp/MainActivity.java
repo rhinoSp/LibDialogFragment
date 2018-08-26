@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             dialog.show(this);
         } else if (R.id.password_dialog == id) {
             PwdInputDialogFragment dialog = new PwdInputDialogFragment();
-
             dialog.setPositiveKeyClickListener(new IOnDialogKeyClickListener<PwdInputDialogFragment>() {
                 @Override
                 public void onClick(PwdInputDialogFragment dialog) {
