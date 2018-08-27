@@ -6,11 +6,10 @@ import android.support.annotation.ColorInt;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import com.rhino.dialog.R;
 import com.rhino.dialog.base.BaseSimpleDialogFragment;
 
 
@@ -22,10 +21,22 @@ import com.rhino.dialog.base.BaseSimpleDialogFragment;
  **/
 public class EditDialogFragment extends BaseSimpleDialogFragment {
 
-    private static final int DEFAULT_EDIT_PADDING_LEFT = 6; //dp
-    private static final int DEFAULT_EDIT_PADDING_TOP = 0; //dp
-    private static final int DEFAULT_EDIT_PADDING_RIGHT = 6; //dp
-    private static final int DEFAULT_EDIT_PADDING_BOTTOM = 0; //dp
+    /**
+     * The default left padding of EditText.
+     */
+    private static final int DEFAULT_EDIT_PADDING_LEFT = 12;
+    /**
+     * The default top padding of EditText.
+     */
+    private static final int DEFAULT_EDIT_PADDING_TOP = 0;
+    /**
+     * The default right padding of EditText.
+     */
+    private static final int DEFAULT_EDIT_PADDING_RIGHT = 12;
+    /**
+     * The default bottom padding of EditText.
+     */
+    private static final int DEFAULT_EDIT_PADDING_BOTTOM = 0;
 
     /**
      * The default max input length.
@@ -72,9 +83,29 @@ public class EditDialogFragment extends BaseSimpleDialogFragment {
      */
     private Drawable mEditBackgroundDrawable;
     /**
-     * The padding of TextView.
+     * The left padding of EditText.
      */
-    private int mPaddingLeft, mPaddingTop, mPaddingRight, mPaddingBottom;
+    private int mPaddingLeft = DEFAULT_EDIT_PADDING_LEFT;
+    /**
+     * The top padding of EditText.
+     */
+    private int mPaddingTop = DEFAULT_EDIT_PADDING_TOP;
+    /**
+     * The right padding of EditText.
+     */
+    private int mPaddingRight = DEFAULT_EDIT_PADDING_RIGHT;
+    /**
+     * The bottom padding of EditText.
+     */
+    private int mPaddingBottom = DEFAULT_EDIT_PADDING_BOTTOM;
+    /**
+     * The width of EditText.
+     */
+    private int mEditTextWidth;
+    /**
+     * The height of EditText.
+     */
+    private int mEditTextHeight;
 
 
     @Override
@@ -82,9 +113,17 @@ public class EditDialogFragment extends BaseSimpleDialogFragment {
         LinearLayout mLinearLayout = new LinearLayout(getActivity());
         mLinearLayout.setGravity(Gravity.CENTER);
 
-        int width = (int) getActivity().getResources().getDimension(R.dimen.edit_dialog_container_width);
-        int height = (int) getActivity().getResources().getDimension(R.dimen.edit_dialog_container_height);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(width, height);
+        if (mEditBackgroundDrawable == null) {
+            mEditBackgroundDrawable = getActivity().getResources().getDrawable(R.drawable.shape_rect_sol_tran_str1_black20_cor5);
+        }
+
+        if (mEditTextWidth == 0) {
+            mEditTextWidth = (int) getActivity().getResources().getDimension(R.dimen.edit_dialog_container_width);
+        }
+        if (mEditTextHeight == 0) {
+            mEditTextHeight = (int) getActivity().getResources().getDimension(R.dimen.edit_dialog_container_height);
+        }
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(mEditTextWidth, mEditTextHeight);
 
         mEditText = new EditText(getActivity());
         mEditText.setLayoutParams(lp);
@@ -104,12 +143,6 @@ public class EditDialogFragment extends BaseSimpleDialogFragment {
 
     @Override
     protected boolean initData() {
-        float scale = getActivity().getResources().getDisplayMetrics().density;
-        mPaddingLeft = (int) (DEFAULT_EDIT_PADDING_LEFT * scale + 0.5f);
-        mPaddingRight = (int) (DEFAULT_EDIT_PADDING_RIGHT * scale + 0.5f);
-        mPaddingTop = (int) (DEFAULT_EDIT_PADDING_TOP * scale + 0.5f);
-        mPaddingBottom = (int) (DEFAULT_EDIT_PADDING_BOTTOM * scale + 0.5f);
-        mEditBackgroundDrawable = getActivity().getResources().getDrawable(R.drawable.shape_rect_sol_tran_str1_black20_cor5);
         return true;
     }
 
@@ -118,9 +151,33 @@ public class EditDialogFragment extends BaseSimpleDialogFragment {
     }
 
     /**
-     * Set the padding of TextView.
+     * Set the width of EditText.
      */
-    public EditDialogFragment setPadding(int left, int top, int right, int bottom) {
+    public EditDialogFragment setEditTextWidth(int width) {
+        this.mEditTextWidth = width;
+        if (null != mEditText) {
+            ViewGroup.LayoutParams lp = mEditText.getLayoutParams();
+            lp.height = mEditTextHeight;
+        }
+        return this;
+    }
+
+    /**
+     * Set the height of EditText.
+     */
+    public EditDialogFragment setEditTextHeight(int height) {
+        this.mEditTextHeight = height;
+        if (null != mEditText) {
+            ViewGroup.LayoutParams lp = mEditText.getLayoutParams();
+            lp.height = mEditTextHeight;
+        }
+        return this;
+    }
+
+    /**
+     * Set the padding of EditText.
+     */
+    public EditDialogFragment setEditTextPadding(int left, int top, int right, int bottom) {
         mPaddingLeft = left;
         mPaddingTop = top;
         mPaddingRight = right;
@@ -167,7 +224,20 @@ public class EditDialogFragment extends BaseSimpleDialogFragment {
     }
 
     /**
-     * Set the size of TextView.
+     * Set drawable of EditText background.
+     *
+     * @param drawable drawable
+     */
+    public EditDialogFragment setEditTextBackground(Drawable drawable) {
+        this.mEditBackgroundDrawable = drawable;
+        if (null != mEditText) {
+            mEditText.setBackgroundDrawable(drawable);
+        }
+        return this;
+    }
+
+    /**
+     * Set the size of EditText.
      *
      * @param size size
      */
@@ -180,20 +250,7 @@ public class EditDialogFragment extends BaseSimpleDialogFragment {
     }
 
     /**
-     * Set drawable of EditText background.
-     *
-     * @param drawable drawable
-     */
-    public EditDialogFragment setEditBackground(Drawable drawable) {
-        this.mEditBackgroundDrawable = drawable;
-        if (null != mEditText) {
-            mEditText.setBackgroundDrawable(drawable);
-        }
-        return this;
-    }
-
-    /**
-     * Set the color of TextView.
+     * Set the color of EditText.
      *
      * @param color color
      */
@@ -206,20 +263,7 @@ public class EditDialogFragment extends BaseSimpleDialogFragment {
     }
 
     /**
-     * Set the text.
-     *
-     * @param text text
-     */
-    public EditDialogFragment setText(String text) {
-        this.mText = text;
-        if (null != mEditText) {
-            mEditText.setText(text);
-        }
-        return this;
-    }
-
-    /**
-     * Set the color of TextView hint.
+     * Set the color of EditText hint.
      *
      * @param color color
      */
@@ -240,6 +284,19 @@ public class EditDialogFragment extends BaseSimpleDialogFragment {
         this.mHintText = text;
         if (null != mEditText) {
             mEditText.setHint(text);
+        }
+        return this;
+    }
+
+    /**
+     * Set the text.
+     *
+     * @param text text
+     */
+    public EditDialogFragment setText(String text) {
+        this.mText = text;
+        if (null != mEditText) {
+            mEditText.setText(text);
         }
         return this;
     }
