@@ -16,10 +16,22 @@ import com.rhino.dialog.base.BaseSimpleDialogFragment;
  **/
 public class MsgDialogFragment extends BaseSimpleDialogFragment {
 
-    private static final int DEFAULT_MSG_PADDING_LEFT = 10; //dp
-    private static final int DEFAULT_MSG_PADDING_TOP = 10; //dp
-    private static final int DEFAULT_MSG_PADDING_RIGHT = 10; //dp
-    private static final int DEFAULT_MSG_PADDING_BOTTOM = 10; //dp
+    /**
+     * The default left padding of TextView.
+     */
+    private static final int DEFAULT_EDIT_PADDING_LEFT = 20;
+    /**
+     * The default top padding of TextView.
+     */
+    private static final int DEFAULT_EDIT_PADDING_TOP = 20;
+    /**
+     * The default right padding of TextView.
+     */
+    private static final int DEFAULT_EDIT_PADDING_RIGHT = 20;
+    /**
+     * The default bottom padding of TextView.
+     */
+    private static final int DEFAULT_EDIT_PADDING_BOTTOM = 20;
 
     /**
      * The message TextView.
@@ -39,9 +51,21 @@ public class MsgDialogFragment extends BaseSimpleDialogFragment {
      */
     private String mText = "message";
     /**
-     * The padding of TextView.
+     * The left padding of TextView.
      */
-    private int mPaddingLeft, mPaddingTop, mPaddingRight, mPaddingBottom;
+    private int mPaddingLeft = DEFAULT_EDIT_PADDING_LEFT;
+    /**
+     * The top padding of TextView.
+     */
+    private int mPaddingTop = DEFAULT_EDIT_PADDING_TOP;
+    /**
+     * The right padding of TextView.
+     */
+    private int mPaddingRight = DEFAULT_EDIT_PADDING_RIGHT;
+    /**
+     * The bottom padding of TextView.
+     */
+    private int mPaddingBottom = DEFAULT_EDIT_PADDING_BOTTOM;
 
 
     @Override
@@ -58,11 +82,6 @@ public class MsgDialogFragment extends BaseSimpleDialogFragment {
 
     @Override
     protected boolean initData() {
-        float scale = getActivity().getResources().getDisplayMetrics().density;
-        mPaddingLeft = (int) (DEFAULT_MSG_PADDING_LEFT * scale + 0.5f);
-        mPaddingRight = (int) (DEFAULT_MSG_PADDING_RIGHT * scale + 0.5f);
-        mPaddingTop = (int) (DEFAULT_MSG_PADDING_TOP * scale + 0.5f);
-        mPaddingBottom = (int) (DEFAULT_MSG_PADDING_BOTTOM * scale + 0.5f);
         return true;
     }
 

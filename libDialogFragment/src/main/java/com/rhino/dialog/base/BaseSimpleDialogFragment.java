@@ -230,9 +230,6 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
                 FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         mLlContentContainer.addView(mContentView, lp);
 
-        mNegativeKeyTextColors = getResources().getColorStateList(R.color.color_nor_black_pre_black40);
-        mPositiveKeyTextColors = getResources().getColorStateList(R.color.color_nor_black_pre_black40);
-
         if (null != mBackgroundDrawable) {
             mLlDialog.setBackgroundDrawable(mBackgroundDrawable);
         }

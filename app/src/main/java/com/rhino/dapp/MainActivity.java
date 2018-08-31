@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "message message message message message message message message " +
                     "message message message message message message message");
             dialog.setNegativeKeyText("Cancel");
+            dialog.setNegativeKeyColor(getResources().getColorStateList(R.color.color_nor_black_pre_black40));
             dialog.setNegativeKeyClickListener(new IOnDialogKeyClickListener() {
                 @Override
                 public void onClick(DialogFragment dialog) {
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
             dialog.setPositiveKeyText("Ok");
+            dialog.setPositiveKeyColor(getResources().getColorStateList(R.color.color_nor_black_pre_black40));
             dialog.setPositiveKeyClickListener(new IOnDialogKeyClickListener() {
                 @Override
                 public void onClick(DialogFragment dialog) {
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             EditDialogFragment dialog = new EditDialogFragment();
             dialog.setTitle("This is title");
             dialog.setNegativeKeyText("Cancel");
+            dialog.setNegativeKeyColor(getResources().getColorStateList(R.color.color_nor_black_pre_black40));
             dialog.setNegativeKeyClickListener(new IOnDialogKeyClickListener() {
                 @Override
                 public void onClick(DialogFragment dialog) {
@@ -72,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
             dialog.setPositiveKeyText("Ok");
+            dialog.setPositiveKeyColor(getResources().getColorStateList(R.color.color_nor_black_pre_black40));
             dialog.setPositiveKeyClickListener(new IOnDialogKeyClickListener<EditDialogFragment>() {
                 @Override
                 public void onClick(EditDialogFragment dialog) {
