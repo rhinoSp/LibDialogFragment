@@ -45,5 +45,13 @@
         android:gravity="center"
         android:text="bottom dialog"/>
 
+    <Button
+        android:id="@+id/popup_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:text="popup dialog"/>
+
 
 </LinearLayout>

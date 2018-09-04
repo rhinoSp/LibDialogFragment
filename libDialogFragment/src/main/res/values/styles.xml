@@ -1,5 +1,10 @@
 <resources>
 
+    <style name="AnimationAlpha" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_alpha_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_alpha_out</item>
+    </style>
+
     <style name="AnimationScaleAlpha" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/anim_scale_alpha_in</item>
         <item name="android:windowExitAnimation">@anim/anim_scale_alpha_out</item>
@@ -10,11 +15,31 @@
         <item name="android:windowExitAnimation">@anim/anim_translate_bottom_out</item>
     </style>
 
+    <style name="AnimationTranTop" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_translate_top_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_translate_top_out</item>
+    </style>
+
+    <style name="AnimationScaleTranTopRight" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_pop_menu_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_pop_menu_out</item>
+    </style>
+
     <style name="DialogTheme" parent="android:Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="AnimationAlphaDialog" parent="DialogTheme">
+        <item name="android:windowAnimationStyle">@style/AnimationAlpha</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="AnimationAlphaDialogNoDim" parent="DialogTheme">
+        <item name="android:windowAnimationStyle">@style/AnimationAlpha</item>
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
     <style name="AnimationScaleAlphaDialog" parent="DialogTheme">
@@ -24,6 +49,11 @@
 
     <style name="AnimationTranBottomDialog" parent="DialogTheme">
         <item name="android:windowAnimationStyle">@style/AnimationTranBottom</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="AnimationTranTopDialog" parent="DialogTheme">
+        <item name="android:windowAnimationStyle">@style/AnimationScaleTranTopRight</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 

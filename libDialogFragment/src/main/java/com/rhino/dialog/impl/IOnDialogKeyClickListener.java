@@ -7,5 +7,5 @@ import android.support.v4.app.DialogFragment;
  * @since Create on 2017/9/27.
  **/
 public interface IOnDialogKeyClickListener<T extends DialogFragment> {
-    void onClick(T dialog);
+    void onClick(T dialogFragment);
 }

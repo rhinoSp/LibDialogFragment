@@ -12,6 +12,8 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -115,12 +117,10 @@ public class BottomSelectDialogFragment extends BaseDialogFragment implements Vi
      */
     private IOnItemClickListener mIOnItemClickListener;
 
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public BottomSelectDialogFragment() {
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AnimationTranBottomDialog);
-        setContentGravity(Gravity.BOTTOM);
+        setWindowGravity(Gravity.BOTTOM);
+        setWindowWidth(WindowManager.LayoutParams.MATCH_PARENT);
     }
 
     @Override
@@ -153,6 +153,8 @@ public class BottomSelectDialogFragment extends BaseDialogFragment implements Vi
 
         // content
         LinearLayout contentLl = new LinearLayout(getActivity());
+        contentLl.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
         contentLl.setOrientation(LinearLayout.VERTICAL);
         contentLl.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_rect_sol_white_cor5));
 
@@ -202,6 +204,8 @@ public class BottomSelectDialogFragment extends BaseDialogFragment implements Vi
                     mGapHeight));
 
             LinearLayout cancelLl = new LinearLayout(getActivity());
+            cancelLl.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
             cancelLl.setOrientation(LinearLayout.VERTICAL);
             cancelLl.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_rect_sol_white_cor5));
 
