@@ -11,6 +11,7 @@ import com.rhino.dialog.BottomSelectDialogFragment;
 import com.rhino.dialog.EditDialogFragment;
 import com.rhino.dialog.LoadingDialogFragment;
 import com.rhino.dialog.MsgDialogFragment;
+import com.rhino.dialog.PopupMenuDialogFragment;
 import com.rhino.dialog.pwd.PwdInputDialogFragment;
 import com.rhino.dialog.impl.IOnDialogKeyClickListener;
 import com.rhino.dialog.impl.DefaultDialogListener;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.edit_dialog).setOnClickListener(this);
         findViewById(R.id.password_dialog).setOnClickListener(this);
         findViewById(R.id.bottom_dialog).setOnClickListener(this);
+        findViewById(R.id.popup_dialog).setOnClickListener(this);
     }
 
     @Override
@@ -38,81 +40,88 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (R.id.loading_dialog == id) {
             new LoadingDialogFragment().show(this);
         } else if (R.id.msg_dialog == id) {
-            MsgDialogFragment dialog = new MsgDialogFragment();
-            dialog.setTitle("This is title title title title title title title title");
-            dialog.setText("This is message message message message message message message " +
+            MsgDialogFragment dialogFragment = new MsgDialogFragment();
+            dialogFragment.setAlignType(PopupMenuDialogFragment.ALIGN_TYPE_THIS_BOTTOM_WINDOW_RIGHT);
+            dialogFragment.setAlignView(view);
+            dialogFragment.setTitle("This is title title title title title title title title");
+            dialogFragment.setText("This is message message message message message message message " +
                     "message message message message message message message message " +
                     "message message message message message message message");
-            dialog.setNegativeKeyText("Cancel");
-            dialog.setNegativeKeyColor(getResources().getColorStateList(R.color.color_nor_black_pre_black40));
-            dialog.setNegativeKeyClickListener(new IOnDialogKeyClickListener() {
+            dialogFragment.setNegativeKeyText("Cancel");
+            dialogFragment.setNegativeKeyColor(getResources().getColorStateList(R.color.color_nor_black_pre_black40));
+            dialogFragment.setNegativeKeyClickListener(new IOnDialogKeyClickListener() {
                 @Override
-                public void onClick(DialogFragment dialog) {
+                public void onClick(DialogFragment dialogFragment) {
                     showToast("Cancel");
-                    dialog.dismiss();
+                    dialogFragment.dismiss();
                 }
             });
-            dialog.setPositiveKeyText("Ok");
-            dialog.setPositiveKeyColor(getResources().getColorStateList(R.color.color_nor_black_pre_black40));
-            dialog.setPositiveKeyClickListener(new IOnDialogKeyClickListener() {
+            dialogFragment.setPositiveKeyText("Ok");
+            dialogFragment.setPositiveKeyColor(getResources().getColorStateList(R.color.color_nor_black_pre_black40));
+            dialogFragment.setPositiveKeyClickListener(new IOnDialogKeyClickListener() {
                 @Override
-                public void onClick(DialogFragment dialog) {
+                public void onClick(DialogFragment dialogFragment) {
                     showToast("Ok");
-                    dialog.dismiss();
+                    dialogFragment.dismiss();
                 }
             });
-            dialog.show(this);
+            dialogFragment.show(this);
         } else if (R.id.edit_dialog == id) {
-            EditDialogFragment dialog = new EditDialogFragment();
-            dialog.setTitle("This is title");
-            dialog.setNegativeKeyText("Cancel");
-            dialog.setNegativeKeyColor(getResources().getColorStateList(R.color.color_nor_black_pre_black40));
-            dialog.setNegativeKeyClickListener(new IOnDialogKeyClickListener() {
+            EditDialogFragment dialogFragment = new EditDialogFragment();
+            dialogFragment.setTitle("This is title");
+            dialogFragment.setNegativeKeyText("Cancel");
+            dialogFragment.setNegativeKeyColor(getResources().getColorStateList(R.color.color_nor_black_pre_black40));
+            dialogFragment.setNegativeKeyClickListener(new IOnDialogKeyClickListener() {
                 @Override
-                public void onClick(DialogFragment dialog) {
+                public void onClick(DialogFragment dialogFragment) {
                     showToast("Cancel");
-                    dialog.dismiss();
+                    dialogFragment.dismiss();
                 }
             });
-            dialog.setPositiveKeyText("Ok");
-            dialog.setPositiveKeyColor(getResources().getColorStateList(R.color.color_nor_black_pre_black40));
-            dialog.setPositiveKeyClickListener(new IOnDialogKeyClickListener<EditDialogFragment>() {
+            dialogFragment.setPositiveKeyText("Ok");
+            dialogFragment.setPositiveKeyColor(getResources().getColorStateList(R.color.color_nor_black_pre_black40));
+            dialogFragment.setPositiveKeyClickListener(new IOnDialogKeyClickListener<EditDialogFragment>() {
                 @Override
-                public void onClick(EditDialogFragment dialog) {
-                    showToast(dialog.getText());
-                    dialog.dismiss();
+                public void onClick(EditDialogFragment dialogFragment) {
+                    showToast(dialogFragment.getText());
+                    dialogFragment.dismiss();
                 }
             });
-            dialog.show(this);
+            dialogFragment.show(this);
         } else if (R.id.password_dialog == id) {
-            PwdInputDialogFragment dialog = new PwdInputDialogFragment();
-            dialog.setPositiveKeyClickListener(new IOnDialogKeyClickListener<PwdInputDialogFragment>() {
+            PwdInputDialogFragment dialogFragment = new PwdInputDialogFragment();
+            dialogFragment.setPositiveKeyClickListener(new IOnDialogKeyClickListener<PwdInputDialogFragment>() {
                 @Override
-                public void onClick(PwdInputDialogFragment dialog) {
-                    showToast(dialog.getPasswordString());
-                    dialog.dismiss();
+                public void onClick(PwdInputDialogFragment dialogFragment) {
+                    showToast(dialogFragment.getPasswordString());
+                    dialogFragment.dismiss();
                 }
             });
-            dialog.show(this);
+            dialogFragment.show(this);
         } else if (R.id.bottom_dialog == id) {
             List<BottomSelectDialogFragment.Item> list = new ArrayList<>();
             list.add(BottomSelectDialogFragment.Item.build("xxx", Color.BLACK));
             list.add(BottomSelectDialogFragment.Item.build("sf322r", Color.GREEN));
             list.add(BottomSelectDialogFragment.Item.build("21czx", Color.RED));
 
-            BottomSelectDialogFragment dialog = new BottomSelectDialogFragment();
-            dialog.setTitleText("This is title");
-            dialog.setCancelable(true);
-            dialog.setIOnDialogListener(new DefaultDialogListener());
-            dialog.setItems(list);
-            dialog.setOnItemClickListener(new BottomSelectDialogFragment.IOnItemClickListener() {
+            BottomSelectDialogFragment dialogFragment = new BottomSelectDialogFragment();
+            dialogFragment.setTitleText("This is title");
+            dialogFragment.setCancelable(true);
+            dialogFragment.setIOnDialogListener(new DefaultDialogListener());
+            dialogFragment.setItems(list);
+            dialogFragment.setOnItemClickListener(new BottomSelectDialogFragment.IOnItemClickListener() {
                 @Override
-                public void onItemClick(BottomSelectDialogFragment dialog, BottomSelectDialogFragment.Item item) {
-                    dialog.dismiss();
+                public void onItemClick(BottomSelectDialogFragment dialogFragment, BottomSelectDialogFragment.Item item) {
+                    dialogFragment.dismiss();
                     showToast(item.mText);
                 }
             });
-            dialog.show(this);
+            dialogFragment.show(this);
+        } else if (R.id.popup_dialog == id) {
+            PopupMenuDialogFragment dialogFragment = new PopupMenuDialogFragment();
+            dialogFragment.setAlignType(PopupMenuDialogFragment.ALIGN_TYPE_THIS_TOP_WINDOW_RIGHT);
+            dialogFragment.setAlignView(view);
+            dialogFragment.show(this);
         }
     }
 
