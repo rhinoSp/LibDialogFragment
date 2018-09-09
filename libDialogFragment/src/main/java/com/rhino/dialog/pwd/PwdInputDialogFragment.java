@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -63,7 +64,6 @@ public class PwdInputDialogFragment extends BaseSimpleDialogFragment {
      */
     @Dimension
     private int mRimCorner = 4;
-
     /**
      * Whether show password.
      **/
@@ -82,12 +82,14 @@ public class PwdInputDialogFragment extends BaseSimpleDialogFragment {
      * The password EditText.
      */
     private PwdInputEditText mPwdInputEditText;
-
+    /**
+     * The TextWatcher.
+     */
+    private TextWatcher mTextWatcher;
     /**
      * the width of pwd
      */
     private int mPwdWidth;
-
     /**
      * the height of pwd
      */
@@ -115,6 +117,9 @@ public class PwdInputDialogFragment extends BaseSimpleDialogFragment {
 
         mPwdInputEditText = new PwdInputEditText(getActivity());
         mPwdInputEditText.setLayoutParams(lp);
+        if (mTextWatcher != null) {
+            mPwdInputEditText.addTextChangedListener(mTextWatcher);
+        }
 
         mLinearLayout.addView(mPwdInputEditText);
         setContentView(mLinearLayout);
@@ -154,6 +159,18 @@ public class PwdInputDialogFragment extends BaseSimpleDialogFragment {
     @Nullable
     public PwdInputEditText getEditText() {
         return mPwdInputEditText;
+    }
+
+    /**
+     * Set the TextWatcher.
+     * @param textWatcher TextWatcher
+     */
+    public PwdInputDialogFragment setTextWatcher(TextWatcher textWatcher) {
+        this.mTextWatcher = textWatcher;
+        if (null != mPwdInputEditText) {
+            mPwdInputEditText.addTextChangedListener(textWatcher);
+        }
+        return this;
     }
 
     /**
