@@ -1,16 +1,20 @@
 package com.rhino.dialog.pwd;
 
 
+import android.content.Context;
+import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Dimension;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import com.rhino.dialog.R;
@@ -154,6 +158,23 @@ public class PwdInputDialogFragment extends BaseSimpleDialogFragment {
     protected void onClickNegativeKey() {
         super.onClickNegativeKey();
         dismiss();
+    }
+
+    @Override
+    public void show(FragmentActivity activity) {
+        show(activity.getSupportFragmentManager(), getClass().getName());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (getActivity() != null && !isDetached()) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.showSoftInput(mPwdInputEditText, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                }
+            }
+        }, 100);
     }
 
     @Nullable
