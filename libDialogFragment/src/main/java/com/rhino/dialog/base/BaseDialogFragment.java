@@ -74,11 +74,11 @@ public abstract class BaseDialogFragment extends DialogFragment {
     /**
      * The type of align, ALIGN_TYPE_XXX.
      **/
-    private int mAlignType;
+    protected int mAlignType;
     /**
      * Align this view.
      */
-    private View mAlignView;
+    protected View mAlignView;
 
     /**
      * The parent view.
@@ -91,12 +91,12 @@ public abstract class BaseDialogFragment extends DialogFragment {
     /**
      * The parent view width.
      **/
-    private int mParentViewWidth;
+    protected int mParentViewWidth;
 
     /**
      * The parent view height.
      **/
-    private int mParentViewHeight;
+    protected int mParentViewHeight;
     /**
      * The IOnDialogListener.
      */
