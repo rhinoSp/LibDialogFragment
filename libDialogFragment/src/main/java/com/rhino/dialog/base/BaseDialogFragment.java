@@ -176,6 +176,12 @@ public abstract class BaseDialogFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mParentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onParentClick();
+            }
+        });
         initView();
     }
 
@@ -232,6 +238,13 @@ public abstract class BaseDialogFragment extends DialogFragment {
     public void setCancelable(boolean cancelable) {
         super.setCancelable(cancelable);
         this.mOutsideCancelable = cancelable;
+    }
+
+    /**
+     * Parent click.
+     */
+    public void onParentClick() {
+
     }
 
     /**

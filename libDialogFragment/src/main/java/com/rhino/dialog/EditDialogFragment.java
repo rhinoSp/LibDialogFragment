@@ -1,12 +1,16 @@
 package com.rhino.dialog;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.annotation.ColorInt;
+import android.support.v4.app.FragmentActivity;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -148,6 +152,23 @@ public class EditDialogFragment extends BaseSimpleDialogFragment {
 
     @Override
     protected void initView() {
+    }
+
+    @Override
+    public void show(FragmentActivity activity) {
+        show(activity.getSupportFragmentManager(), getClass().getName());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (getActivity() != null && !isDetached()) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.showSoftInput(mEditText, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                }
+            }
+        }, 100);
     }
 
     /**
