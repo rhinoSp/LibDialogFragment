@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -33,19 +34,19 @@ public abstract class BaseDialogFragment extends DialogFragment {
     /**
      * The top or bottom margin of popup window.
      **/
-    private static final int DF_POPUP_WINDOW_MARGIN_TOP_OR_BOTTOM = 13;
+    public static final int DF_POPUP_WINDOW_MARGIN_TOP_OR_BOTTOM = 13;
     /**
      * the popup window margin top or bottom.
      **/
-    private int mMarginTopOrBottom = DF_POPUP_WINDOW_MARGIN_TOP_OR_BOTTOM;
+    public int mMarginTopOrBottom = DF_POPUP_WINDOW_MARGIN_TOP_OR_BOTTOM;
     /**
      * The left or right margin of popup window.
      **/
-    private static final int DF_POPUP_WINDOW_MARGIN_RIGHT_OR_LEFT = 13;
+    public static final int DF_POPUP_WINDOW_MARGIN_RIGHT_OR_LEFT = 13;
     /**
      * The right or left margin of popup window.
      **/
-    private int mMarginRightOrLeft = DF_POPUP_WINDOW_MARGIN_RIGHT_OR_LEFT;
+    public int mMarginRightOrLeft = DF_POPUP_WINDOW_MARGIN_RIGHT_OR_LEFT;
 
     /**
      * Align this view bottom and align window left.
@@ -74,61 +75,61 @@ public abstract class BaseDialogFragment extends DialogFragment {
     /**
      * The type of align, ALIGN_TYPE_XXX.
      **/
-    protected int mAlignType;
+    public int mAlignType;
     /**
      * Align this view.
      */
-    protected View mAlignView;
+    public View mAlignView;
 
     /**
      * The parent view.
      */
-    protected View mParentView;
+    public View mParentView;
     /**
      * The parent view layout id.
      */
-    protected int mParentLayoutId;
+    public int mParentLayoutId;
     /**
      * The parent view width.
      **/
-    protected int mParentViewWidth;
+    public int mParentViewWidth;
 
     /**
      * The parent view height.
      **/
-    protected int mParentViewHeight;
+    public int mParentViewHeight;
     /**
      * The IOnDialogListener.
      */
-    protected IOnDialogListener mIOnDialogListener;
+    public IOnDialogListener mIOnDialogListener;
     /**
      * The OnClickListener.
      */
-    protected View.OnClickListener mBaseOnClickListener;
+    public View.OnClickListener mBaseOnClickListener;
     /**
      * The OnLongClickListener.
      */
-    protected View.OnLongClickListener mBaseOnLongClickListener;
+    public View.OnLongClickListener mBaseOnLongClickListener;
     /**
      * The gravity of window.
      */
-    protected int mWindowGravity = Gravity.CENTER;
+    public int mWindowGravity = Gravity.CENTER;
     /**
      * The window view width.
      */
-    protected int mWindowWidth = WindowManager.LayoutParams.WRAP_CONTENT;
+    public int mWindowWidth = WindowManager.LayoutParams.WRAP_CONTENT;
     /**
      * The window view height.
      */
-    protected int mWindowHeight = WindowManager.LayoutParams.WRAP_CONTENT;
+    public int mWindowHeight = WindowManager.LayoutParams.WRAP_CONTENT;
     /**
      * Whether can be canceled when touch outside dialog.
      */
-    protected boolean mOutsideCancelable = true;
+    public boolean mOutsideCancelable = true;
     /**
      * The Window.
      */
-    protected Window mWindow;
+    public Window mWindow;
 
 
     /**
@@ -347,7 +348,10 @@ public abstract class BaseDialogFragment extends DialogFragment {
         params.topMargin = topMargin;
         params.leftMargin = leftMargin;
         params.width = mParentViewWidth;
-        params.height = mParentViewHeight;
+        params.height = mParentViewHeight + topMargin > getScreenHeight(getContext())
+                ? getScreenHeight(getContext()) - getStatusBarHeight(getContext()) - topMargin - mMarginTopOrBottom
+                : mParentViewHeight + topMargin;
+
     }
 
     /**
@@ -445,6 +449,21 @@ public abstract class BaseDialogFragment extends DialogFragment {
             result = ctx.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    /**
+     * get screen height
+     *
+     * @param ctx the context
+     * @return the screen height
+     */
+    @SuppressWarnings("deprecation")
+    public static int getScreenHeight(Context ctx) {
+        WindowManager manager = (WindowManager) ctx
+                .getSystemService(Context.WINDOW_SERVICE);
+        Display display = manager.getDefaultDisplay();
+
+        return display.getHeight();
     }
 
     /**
