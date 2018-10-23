@@ -49,29 +49,37 @@ public abstract class BaseDialogFragment extends DialogFragment {
     public int mMarginRightOrLeft = DF_POPUP_WINDOW_MARGIN_RIGHT_OR_LEFT;
 
     /**
+     * Align this view bottom.
+     **/
+    public static final int ALIGN_TYPE_THIS_BOTTOM = 0x1;
+    /**
      * Align this view bottom and align window left.
      **/
-    public static final int ALIGN_TYPE_THIS_BOTTOM_WINDOW_LEFT = 0x1;
+    public static final int ALIGN_TYPE_THIS_BOTTOM_WINDOW_LEFT = 0x2;
     /**
      * Align this view bottom and center.
      **/
-    public static final int ALIGN_TYPE_THIS_BOTTOM_CENTER = 0x2;
+    public static final int ALIGN_TYPE_THIS_BOTTOM_CENTER = 0x3;
     /**
      * Align this view bottom and align window right.
      **/
-    public static final int ALIGN_TYPE_THIS_BOTTOM_WINDOW_RIGHT = 0x3;
+    public static final int ALIGN_TYPE_THIS_BOTTOM_WINDOW_RIGHT = 0x4;
+    /**
+     * Align this view top.
+     **/
+    public static final int ALIGN_TYPE_THIS_TOP = 0x5;
     /**
      * Align this view top and align window left.
      **/
-    public static final int ALIGN_TYPE_THIS_TOP_WINDOW_LEFT = 0x4;
+    public static final int ALIGN_TYPE_THIS_TOP_WINDOW_LEFT = 0x6;
     /**
      * Align this view top and align window center.
      **/
-    public static final int ALIGN_TYPE_THIS_TOP_CENTER = 0x5;
+    public static final int ALIGN_TYPE_THIS_TOP_CENTER = 0x7;
     /**
      * Align this view top and align window right.
      **/
-    public static final int ALIGN_TYPE_THIS_TOP_WINDOW_RIGHT = 0x6;
+    public static final int ALIGN_TYPE_THIS_TOP_WINDOW_RIGHT = 0x8;
     /**
      * The type of align, ALIGN_TYPE_XXX.
      **/
@@ -317,6 +325,10 @@ public abstract class BaseDialogFragment extends DialogFragment {
         mAlignView.getLocationOnScreen(alignViewLocation);
         setWindowGravity(Gravity.TOP | Gravity.START);
         switch (mAlignType) {
+            case ALIGN_TYPE_THIS_BOTTOM:
+                leftMargin = 0;
+                topMargin = this.mMarginTopOrBottom + alignViewLocation[1] - this.getStatusBarHeight(this.getContext()) + this.mAlignView.getHeight();
+                break;
             case ALIGN_TYPE_THIS_BOTTOM_WINDOW_LEFT:
                 leftMargin = mMarginRightOrLeft + alignViewLocation[0];
                 topMargin = mMarginTopOrBottom + alignViewLocation[1] - getStatusBarHeight(getContext()) + mAlignView.getHeight();
@@ -328,6 +340,10 @@ public abstract class BaseDialogFragment extends DialogFragment {
             case ALIGN_TYPE_THIS_BOTTOM_WINDOW_RIGHT:
                 leftMargin = alignViewLocation[0] + mAlignView.getWidth() - mMarginRightOrLeft - mParentViewWidth;
                 topMargin = mMarginTopOrBottom + alignViewLocation[1] - getStatusBarHeight(getContext()) + mAlignView.getHeight();
+                break;
+            case ALIGN_TYPE_THIS_TOP:
+                leftMargin = 0;
+                topMargin = alignViewLocation[1] - this.getStatusBarHeight(this.getContext()) - this.mParentViewHeight - this.mMarginTopOrBottom;
                 break;
             case ALIGN_TYPE_THIS_TOP_WINDOW_LEFT:
                 leftMargin = mMarginRightOrLeft + alignViewLocation[0];
