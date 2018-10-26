@@ -281,6 +281,8 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
     protected void onClickNegativeKey() {
         if (null != mNegativeListener) {
             mNegativeListener.onClick(this);
+        } else {
+            dismiss();
         }
     }
 
@@ -290,6 +292,8 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
     protected void onClickPositiveKey() {
         if (null != mPositiveListener) {
             mPositiveListener.onClick(this);
+        } else {
+            dismiss();
         }
     }
 

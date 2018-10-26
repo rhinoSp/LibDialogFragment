@@ -2,14 +2,14 @@
 The library of DialogFragment.
 
 # Screenshot
-![](https://github.com/rhinoSp/LibDialogFragment/blob/master/screenshot/screenshot.gif)  
+![](https://github.com/rhinoSp/LibDialogFragment/blob/master/ScreenCapture/ScreenCapture.gif)  
 
 # How to
 To get a Git project into your build:
 
 **Step 1**. Add the JitPack repository to your build file<br>
 Add it in your root build.gradle at the end of repositories:<br>
-```Java
+```
 allprojects {
     repositories {
         ...
@@ -18,7 +18,7 @@ allprojects {
 }
 ```
 **Step 2**. Add the dependency<br>
-```Java
+```
 dependencies {
     implementation 'com.github.rhinoSp:LibDialogFragment:v1.0.0'
 }

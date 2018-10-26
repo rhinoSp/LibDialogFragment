@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <com.rhino.wheel.WheelView
+            android:id="@+id/wv_year"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:item_cyclic_enable="false"
+            app:item_min_alpha_value="0.1"
+            app:item_select_line_color="#44000000"
+            app:item_select_line_enable="true"
+            app:item_select_line_length_scale="1"
+            app:item_select_line_width="0.5dp"
+            app:item_text_color="#ff000000"
+            app:item_text_size="20sp"
+            app:item_vertical_height="34dp"
+            app:item_visible_count="5"
+            app:orientation="vertical"
+            app:min_value="1"
+            app:max_value="60" />
+
+        <com.rhino.wheel.WheelView
+            android:id="@+id/wv_month"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:item_cyclic_enable="false"
+            app:item_min_alpha_value="0.1"
+            app:item_select_line_color="#44000000"
+            app:item_select_line_enable="true"
+            app:item_select_line_length_scale="1"
+            app:item_select_line_width="0.5dp"
+            app:item_text_color="#ff000000"
+            app:item_text_size="20sp"
+            app:item_vertical_height="34dp"
+            app:item_visible_count="5"
+            app:orientation="vertical"
+            app:min_value="1"
+            app:max_value="12" />
+
+        <com.rhino.wheel.WheelView
+            android:id="@+id/wv_day"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:item_cyclic_enable="false"
+            app:item_min_alpha_value="0.1"
+            app:item_select_line_color="#44000000"
+            app:item_select_line_enable="true"
+            app:item_select_line_length_scale="1"
+            app:item_select_line_width="0.5dp"
+            app:item_text_color="#ff000000"
+            app:item_text_size="20sp"
+            app:item_vertical_height="34dp"
+            app:item_visible_count="5"
+            app:orientation="vertical"
+            app:min_value="1"
+            app:max_value="31" />
+
+        <com.rhino.wheel.WheelView
+            android:id="@+id/wv_hour"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:item_cyclic_enable="false"
+            app:item_min_alpha_value="0.1"
+            app:item_select_line_color="#44000000"
+            app:item_select_line_enable="true"
+            app:item_select_line_length_scale="1"
+            app:item_select_line_width="0.5dp"
+            app:item_text_color="#ff000000"
+            app:item_text_size="20sp"
+            app:item_vertical_height="34dp"
+            app:item_visible_count="5"
+            app:orientation="vertical"
+            app:min_value="1"
+            app:max_value="24" />
+
+        <com.rhino.wheel.WheelView
+            android:id="@+id/wv_minute"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:item_cyclic_enable="false"
+            app:item_min_alpha_value="0.1"
+            app:item_select_line_color="#44000000"
+            app:item_select_line_enable="true"
+            app:item_select_line_length_scale="1"
+            app:item_select_line_width="0.5dp"
+            app:item_text_color="#ff000000"
+            app:item_text_size="20sp"
+            app:item_vertical_height="34dp"
+            app:item_visible_count="5"
+            app:orientation="vertical"
+            app:min_value="1"
+            app:max_value="59" />
+
+        <com.rhino.wheel.WheelView
+            android:id="@+id/wv_second"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:item_cyclic_enable="false"
+            app:item_min_alpha_value="0.1"
+            app:item_select_line_color="#44000000"
+            app:item_select_line_enable="true"
+            app:item_select_line_length_scale="1"
+            app:item_select_line_width="0.5dp"
+            app:item_text_color="#ff000000"
+            app:item_text_size="20sp"
+            app:item_vertical_height="34dp"
+            app:item_visible_count="5"
+            app:orientation="vertical"
+            app:min_value="1"
+            app:max_value="59"/>
+
+    </LinearLayout>
+
+</LinearLayout>
