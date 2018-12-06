@@ -42,7 +42,7 @@
                 android:id="@+id/iv_checkbox"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:background="@drawable/selector_rect_nor_theme_light_sel_theme_str1_cor3"
+                android:background="@drawable/selector_rect_nor_black85_sel_black85_str1_cor3"
                 android:padding="3dp" />
 
             <TextView
