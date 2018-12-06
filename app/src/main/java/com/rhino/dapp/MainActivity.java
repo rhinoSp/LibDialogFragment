@@ -12,6 +12,7 @@ import com.rhino.dialog.EditDialogFragment;
 import com.rhino.dialog.LoadingDialogFragment;
 import com.rhino.dialog.MsgDialogFragment;
 import com.rhino.dialog.PopupMenuDialogFragment;
+import com.rhino.dialog.TipsDialogFragment;
 import com.rhino.dialog.picker.DatePickerDialogFragment;
 import com.rhino.dialog.pwd.PwdInputDialogFragment;
 import com.rhino.dialog.impl.IOnDialogKeyClickListener;
@@ -33,10 +34,34 @@ public class MainActivity extends AppCompatActivity {
         int id = view.getId();
         if (R.id.loading_dialog == id) {
             new LoadingDialogFragment().show(this);
+        } else if (R.id.tips_dialog == id) {
+            TipsDialogFragment dialogFragment = new TipsDialogFragment();
+            dialogFragment.setTips("This is message message message message message message message " +
+                    "message message message message message message message message " +
+                    "message message message message message message message");
+//            dialogFragment.setCheckboxVisibility(View.GONE);
+            dialogFragment.setNegativeKeyText("取消");
+            dialogFragment.setNegativeKeyColor(Color.RED);
+            dialogFragment.setNegativeKeyClickListener(new IOnDialogKeyClickListener<TipsDialogFragment>() {
+                @Override
+                public void onClick(TipsDialogFragment dialogFragment) {
+                    dialogFragment.dismiss();
+                }
+            });
+            dialogFragment.setPositiveKeyText("立即设置");
+            dialogFragment.setPositiveKeyColor(Color.BLACK);
+            dialogFragment.setPositiveKeyClickListener(new IOnDialogKeyClickListener<TipsDialogFragment>() {
+                @Override
+                public void onClick(TipsDialogFragment dialogFragment) {
+                    showToast("" + dialogFragment.isCheckboxSelected());
+                    dialogFragment.dismiss();
+                }
+            });
+            dialogFragment.show(this);
         } else if (R.id.msg_dialog == id) {
             MsgDialogFragment dialogFragment = new MsgDialogFragment();
-            dialogFragment.setAlignType(PopupMenuDialogFragment.ALIGN_TYPE_THIS_BOTTOM_WINDOW_RIGHT);
-            dialogFragment.setAlignView(view);
+//            dialogFragment.setAlignType(PopupMenuDialogFragment.ALIGN_TYPE_THIS_BOTTOM_WINDOW_RIGHT);
+//            dialogFragment.setAlignView(view);
             dialogFragment.setTitle("This is title title title title title title title title");
             dialogFragment.setText("This is message message message message message message message " +
                     "message message message message message message message message " +

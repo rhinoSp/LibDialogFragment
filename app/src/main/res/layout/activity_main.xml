@@ -27,6 +27,15 @@
             android:text="msg dialog" />
 
         <Button
+            android:id="@+id/tips_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:onClick="onViewClick"
+            android:text="tips dialog" />
+
+        <Button
             android:id="@+id/edit_dialog"
             android:layout_width="match_parent"
             android:layout_height="60dp"

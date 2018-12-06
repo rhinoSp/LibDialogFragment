@@ -19,19 +19,19 @@ public class MsgDialogFragment extends BaseSimpleDialogFragment {
     /**
      * The default left padding of TextView.
      */
-    private static final int DEFAULT_EDIT_PADDING_LEFT = 20;
+    private static final int DEFAULT_TEXT_PADDING_LEFT = 20;
     /**
      * The default top padding of TextView.
      */
-    private static final int DEFAULT_EDIT_PADDING_TOP = 20;
+    private static final int DEFAULT_TEXT_PADDING_TOP = 20;
     /**
      * The default right padding of TextView.
      */
-    private static final int DEFAULT_EDIT_PADDING_RIGHT = 20;
+    private static final int DEFAULT_TEXT_PADDING_RIGHT = 20;
     /**
      * The default bottom padding of TextView.
      */
-    private static final int DEFAULT_EDIT_PADDING_BOTTOM = 20;
+    private static final int DEFAULT_TEXT_PADDING_BOTTOM = 20;
 
     /**
      * The message TextView.
@@ -53,19 +53,19 @@ public class MsgDialogFragment extends BaseSimpleDialogFragment {
     /**
      * The left padding of TextView.
      */
-    private int mPaddingLeft = DEFAULT_EDIT_PADDING_LEFT;
+    private int mPaddingLeft = DEFAULT_TEXT_PADDING_LEFT;
     /**
      * The top padding of TextView.
      */
-    private int mPaddingTop = DEFAULT_EDIT_PADDING_TOP;
+    private int mPaddingTop = DEFAULT_TEXT_PADDING_TOP;
     /**
      * The right padding of TextView.
      */
-    private int mPaddingRight = DEFAULT_EDIT_PADDING_RIGHT;
+    private int mPaddingRight = DEFAULT_TEXT_PADDING_RIGHT;
     /**
      * The bottom padding of TextView.
      */
-    private int mPaddingBottom = DEFAULT_EDIT_PADDING_BOTTOM;
+    private int mPaddingBottom = DEFAULT_TEXT_PADDING_BOTTOM;
 
 
     @Override
