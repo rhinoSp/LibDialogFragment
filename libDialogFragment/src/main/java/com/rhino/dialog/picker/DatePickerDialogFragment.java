@@ -234,4 +234,25 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
         }
     }
 
+    public int[] getDate() {
+        switch (mStyle) {
+            case STYLE_YYYY_MM_DD_HH_MM_SS:
+                return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()]), mWvMonth.getValue(), mWvDay.getValue(),
+                        mWvHour.getValue(), mWvMinute.getValue(), mWvSecond.getValue()};
+            case STYLE_YYYY_MM_DD_HH_MM:
+                return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()]), mWvMonth.getValue(), mWvDay.getValue(),
+                        mWvHour.getValue(), mWvMinute.getValue()};
+            case STYLE_YYYY_MM_DD:
+                return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()]), mWvMonth.getValue(), mWvDay.getValue()};
+            case STYLE_HH_MM_SS:
+                return new int[] {mWvHour.getValue(), mWvMinute.getValue(), mWvSecond.getValue()};
+            case STYLE_HH_MM:
+                return new int[] {mWvHour.getValue(), mWvMinute.getValue()};
+            default:
+                break;
+        }
+        return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()]), mWvMonth.getValue(), mWvDay.getValue(),
+                mWvHour.getValue(), mWvMinute.getValue(), mWvSecond.getValue()};
+    }
+
 }
