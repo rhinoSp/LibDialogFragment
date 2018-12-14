@@ -19,6 +19,7 @@ import com.rhino.dialog.impl.IOnDialogKeyClickListener;
 import com.rhino.dialog.impl.DefaultDialogListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -144,22 +145,57 @@ public class MainActivity extends AppCompatActivity {
         } else if (R.id.date_dialog1 == id) {
             DatePickerDialogFragment dialogFragment = new DatePickerDialogFragment();
             dialogFragment.setStyle(DatePickerDialogFragment.STYLE_YYYY_MM_DD_HH_MM_SS);
+            dialogFragment.setPositiveKeyClickListener(new IOnDialogKeyClickListener<DatePickerDialogFragment>() {
+                @Override
+                public void onClick(DatePickerDialogFragment dialogFragment) {
+                    dialogFragment.dismiss();
+                    showToast(Arrays.toString(dialogFragment.getDate()));
+                }
+            });
             dialogFragment.show(this);
         } else if (R.id.date_dialog2 == id) {
             DatePickerDialogFragment dialogFragment = new DatePickerDialogFragment();
             dialogFragment.setStyle(DatePickerDialogFragment.STYLE_YYYY_MM_DD_HH_MM);
+            dialogFragment.setPositiveKeyClickListener(new IOnDialogKeyClickListener<DatePickerDialogFragment>() {
+                @Override
+                public void onClick(DatePickerDialogFragment dialogFragment) {
+                    dialogFragment.dismiss();
+                    showToast(Arrays.toString(dialogFragment.getDate()));
+                }
+            });
             dialogFragment.show(this);
         } else if (R.id.date_dialog3 == id) {
             DatePickerDialogFragment dialogFragment = new DatePickerDialogFragment();
             dialogFragment.setStyle(DatePickerDialogFragment.STYLE_YYYY_MM_DD);
+            dialogFragment.setPositiveKeyClickListener(new IOnDialogKeyClickListener<DatePickerDialogFragment>() {
+                @Override
+                public void onClick(DatePickerDialogFragment dialogFragment) {
+                    dialogFragment.dismiss();
+                    showToast(Arrays.toString(dialogFragment.getDate()));
+                }
+            });
             dialogFragment.show(this);
         } else if (R.id.date_dialog4 == id) {
             DatePickerDialogFragment dialogFragment = new DatePickerDialogFragment();
             dialogFragment.setStyle(DatePickerDialogFragment.STYLE_HH_MM_SS);
+            dialogFragment.setPositiveKeyClickListener(new IOnDialogKeyClickListener<DatePickerDialogFragment>() {
+                @Override
+                public void onClick(DatePickerDialogFragment dialogFragment) {
+                    dialogFragment.dismiss();
+                    showToast(Arrays.toString(dialogFragment.getDate()));
+                }
+            });
             dialogFragment.show(this);
         } else if (R.id.date_dialog5 == id) {
             DatePickerDialogFragment dialogFragment = new DatePickerDialogFragment();
             dialogFragment.setStyle(DatePickerDialogFragment.STYLE_HH_MM);
+            dialogFragment.setPositiveKeyClickListener(new IOnDialogKeyClickListener<DatePickerDialogFragment>() {
+                @Override
+                public void onClick(DatePickerDialogFragment dialogFragment) {
+                    dialogFragment.dismiss();
+                    showToast(Arrays.toString(dialogFragment.getDate()));
+                }
+            });
             dialogFragment.show(this);
         }
     }

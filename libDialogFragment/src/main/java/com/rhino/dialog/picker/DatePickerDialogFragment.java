@@ -1,6 +1,7 @@
 package com.rhino.dialog.picker;
 
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
 import android.view.View;
@@ -234,6 +235,7 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
         }
     }
 
+    @NonNull
     public int[] getDate() {
         switch (mStyle) {
             case STYLE_YYYY_MM_DD_HH_MM_SS:
