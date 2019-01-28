@@ -139,7 +139,7 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
         for (long timestamp = start; timestamp < end; ) {
             String year = formatTime(timestamp, "yyyy");
             if (year.equals(currentYear)) {
-                currentValue = index;
+                currentValue = index + 1;
             }
             list.add(year);
             timestamp += MILLISECONDS_PER_YEAR;

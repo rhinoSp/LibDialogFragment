@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     "message message message message message message message message " +
                     "message message message message message message message");
 //            dialogFragment.setCheckboxVisibility(View.GONE);
-            dialogFragment.setNegativeKeyText("取消");
+            dialogFragment.setNegativeKeyText("Cancel");
             dialogFragment.setNegativeKeyColor(Color.RED);
             dialogFragment.setNegativeKeyClickListener(new IOnDialogKeyClickListener<TipsDialogFragment>() {
                 @Override
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     dialogFragment.dismiss();
                 }
             });
-            dialogFragment.setPositiveKeyText("立即设置");
+            dialogFragment.setPositiveKeyText("Ok");
             dialogFragment.setPositiveKeyColor(Color.BLACK);
             dialogFragment.setPositiveKeyClickListener(new IOnDialogKeyClickListener<TipsDialogFragment>() {
                 @Override

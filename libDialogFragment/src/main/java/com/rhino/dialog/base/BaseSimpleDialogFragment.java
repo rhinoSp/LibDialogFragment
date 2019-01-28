@@ -190,8 +190,7 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mParentView = inflater.inflate(R.layout.widget_base_simple_dialog, container, false);
         if (0 != mContentId) {
             mContentView = inflater.inflate(mContentId, container, false);
@@ -203,10 +202,9 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
     @Override
     protected void baseOnClickListener(View v) {
         super.baseOnClickListener(v);
-        int id = v.getId();
-        if (R.id.base_simple_dialog_key_cancel == id) {
+        if (v== mTvNegativeKey) {
             onClickNegativeKey();
-        } else if (R.id.base_simple_dialog_key_ok == id) {
+        } else if (v == mTvPositiveKey) {
             onClickPositiveKey();
         }
     }

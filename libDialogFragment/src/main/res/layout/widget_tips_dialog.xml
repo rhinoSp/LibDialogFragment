@@ -23,7 +23,7 @@
             android:paddingTop="30dp"
             android:paddingRight="15dp"
             android:paddingBottom="10dp"
-            android:text="为保证更好的为您服务，请设置畅行天下为开机自启动。"
+            android:text="This is message"
             android:textColor="#333333"
             android:textSize="16sp" />
 
@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:text="不再提醒"
+                android:text="Never notify"
                 android:textColor="#333333"
                 android:textSize="14sp" />
 
@@ -70,7 +70,7 @@
                 android:paddingTop="10dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="15dp"
-                android:text="取消"
+                android:text="Cancel"
                 android:textColor="@color/color_nor_black_pre_black40"
                 android:textSize="16sp" />
 
@@ -82,7 +82,7 @@
                 android:paddingTop="10dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="15dp"
-                android:text="确定"
+                android:text="Ok"
                 android:textColor="@color/color_nor_black_pre_black40"
                 android:textSize="16sp" />
 
