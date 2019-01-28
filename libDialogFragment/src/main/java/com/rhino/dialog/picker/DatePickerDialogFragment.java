@@ -35,8 +35,8 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
     public static final int STYLE_HH_MM = 5;
     public int mStyle = STYLE_YYYY_MM_DD_HH_MM_SS;
 
-    private WheelView mWvYear, mWvMonth, mWvDay, mWvHour, mWvMinute, mWvSecond;
-    private String[] yearArr;
+    public WheelView mWvYear, mWvMonth, mWvDay, mWvHour, mWvMinute, mWvSecond;
+    public String[] yearArr;
 
     public DatePickerDialogFragment() {
         setTitle("Choose time");
@@ -70,7 +70,7 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
         init();
     }
 
-    private void init() {
+    public void init() {
         switch (mStyle) {
             case STYLE_YYYY_MM_DD_HH_MM_SS:
                 initDefaultYear();

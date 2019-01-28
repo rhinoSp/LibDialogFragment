@@ -69,114 +69,114 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
     /**
      * The negative key listener.
      */
-    private IOnDialogKeyClickListener mNegativeListener;
+    protected IOnDialogKeyClickListener mNegativeListener;
     /**
      * The positive key listener.
      */
-    private IOnDialogKeyClickListener mPositiveListener;
+    protected IOnDialogKeyClickListener mPositiveListener;
 
     /**
      * The drawable of dialog background.
      */
-    private Drawable mBackgroundDrawable;
+    protected Drawable mBackgroundDrawable;
     /**
      * The visibility state of tile.
      */
-    private int mTitleVisibility = View.VISIBLE;
+    protected int mTitleVisibility = View.VISIBLE;
     /**
      * The title text.
      */
-    private String mTitleText = "title";
+    protected String mTitleText = "title";
     /**
      * The size of title text.
      */
-    private int mTitleTextSize = 18;
+    protected int mTitleTextSize = 18;
     /**
      * The color of title text.
      */
     @ColorInt
-    private int mTitleTextColor = 0xFF000000;
+    protected int mTitleTextColor = 0xFF000000;
 
     /**
      * The visibility state of line bottom title.
      */
-    private int mTitleBottomLineVisibility = View.VISIBLE;
+    protected int mTitleBottomLineVisibility = View.VISIBLE;
     /**
      * The color of line bottom title.
      */
     @ColorInt
-    private int mTitleBottomLineColor = 0x2A000000;
+    protected int mTitleBottomLineColor = 0x2A000000;
     /**
      * The visibility state of line top key.
      */
-    private int mKeyTopLineVisibility = View.VISIBLE;
+    protected int mKeyTopLineVisibility = View.VISIBLE;
 
     /**
      * The color of line top key.
      */
     @ColorInt
-    private int mKeyTopLineColor = 0x2A000000;
+    protected int mKeyTopLineColor = 0x2A000000;
     /**
      * The visibility state of line center key.
      */
-    private int mKeyCenterLineVisibility = View.VISIBLE;
+    protected int mKeyCenterLineVisibility = View.VISIBLE;
     /**
      * The color of line center key.
      */
     @ColorInt
-    private int mKeyCenterLineColor = 0x2A000000;
+    protected int mKeyCenterLineColor = 0x2A000000;
 
     /**
      * The visibility state of negative key.
      */
-    private int mNegativeKeyVisibility = View.VISIBLE;
+    protected int mNegativeKeyVisibility = View.VISIBLE;
     /**
      * The drawable of negative key background.
      */
-    private Drawable mNegativeKeyBackgroundDrawable = null;
+    protected Drawable mNegativeKeyBackgroundDrawable = null;
     /**
      * The text of negative key.
      */
-    private String mNegativeKeyText = "Cancel";
+    protected String mNegativeKeyText = "Cancel";
     /**
      * The size of negative key text.
      */
-    private int mNegativeKeyTextSize = 18;
+    protected int mNegativeKeyTextSize = 18;
     /**
      * The color of negative key text.
      */
     @ColorInt
-    private int mNegativeKeyTextColor = 0xFF000000;
+    protected int mNegativeKeyTextColor = 0xFF000000;
     /**
      * The colorStateList of negative key text.
      */
-    private ColorStateList mNegativeKeyTextColors = null;
+    protected ColorStateList mNegativeKeyTextColors = null;
 
     /**
      * The visibility state of positive key.
      */
-    private int mPositiveKeyVisibility = View.VISIBLE;
+    protected int mPositiveKeyVisibility = View.VISIBLE;
     /**
      * The drawable of positive key background.
      */
-    private Drawable mPositiveKeyBackgroundDrawable = null;
+    protected Drawable mPositiveKeyBackgroundDrawable = null;
     /**
      * The text of positive key.
      */
-    private String mPositiveKeyText = "Ok";
+    protected String mPositiveKeyText = "Ok";
     /**
      * The size of positive key text.
      */
-    private int mPositiveKeyTextSize = 18;
+    protected int mPositiveKeyTextSize = 18;
     /**
      * The color of positive key text.
      */
     @ColorInt
-    private int mPositiveKeyTextColor = 0xFF000000;
+    protected int mPositiveKeyTextColor = 0xFF000000;
     /**
      * The colorStateList of positive key text.
      */
-    private ColorStateList mPositiveKeyTextColors = null;
+    protected ColorStateList mPositiveKeyTextColors = null;
 
 
     @Override
@@ -216,7 +216,7 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
      *
      * @param parent view
      */
-    private void initBaseView(View parent) {
+    protected void initBaseView(View parent) {
         mLlDialog = findSubViewById(R.id.base_simple_dialog_ll, parent);
         mTvTitle = findSubViewById(R.id.base_simple_dialog_title, parent);
         mViewTitleBottomLine = findSubViewById(R.id.base_simple_dialog_title_bottom_line, parent);
