@@ -43,7 +43,7 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AnimationTranBottomDialog);
         setWindowGravity(Gravity.BOTTOM);
         setWindowWidth(WindowManager.LayoutParams.MATCH_PARENT);
-        setTitleVisibility(View.GONE);
+//        setTitleVisibility(View.GONE);
     }
 
     @Override
@@ -151,7 +151,7 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
         mWvYear.setOnValueChangedListener(new WheelView.OnValueChangeListener() {
             @Override
             public void onValueChange(WheelView wheelView, int oldVal, int newVal) {
-                initDay(Integer.parseInt(yearArr[newVal]), mWvMonth.getValue());
+                initDay(Integer.parseInt(yearArr[newVal-1]), mWvMonth.getValue());
             }
         });
     }
@@ -167,7 +167,7 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
         mWvMonth.setOnValueChangedListener(new WheelView.OnValueChangeListener() {
             @Override
             public void onValueChange(WheelView wheelView, int oldVal, int newVal) {
-                initDay(Integer.parseInt(yearArr[mWvYear.getValue()]), newVal);
+                initDay(Integer.parseInt(yearArr[mWvYear.getValue()-1]), newVal);
             }
         });
     }
@@ -239,13 +239,13 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
     public int[] getDate() {
         switch (mStyle) {
             case STYLE_YYYY_MM_DD_HH_MM_SS:
-                return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()]), mWvMonth.getValue(), mWvDay.getValue(),
+                return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()-1]), mWvMonth.getValue(), mWvDay.getValue(),
                         mWvHour.getValue(), mWvMinute.getValue(), mWvSecond.getValue()};
             case STYLE_YYYY_MM_DD_HH_MM:
-                return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()]), mWvMonth.getValue(), mWvDay.getValue(),
+                return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()-1]), mWvMonth.getValue(), mWvDay.getValue(),
                         mWvHour.getValue(), mWvMinute.getValue()};
             case STYLE_YYYY_MM_DD:
-                return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()]), mWvMonth.getValue(), mWvDay.getValue()};
+                return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()-1]), mWvMonth.getValue(), mWvDay.getValue()};
             case STYLE_HH_MM_SS:
                 return new int[] {mWvHour.getValue(), mWvMinute.getValue(), mWvSecond.getValue()};
             case STYLE_HH_MM:
@@ -253,7 +253,7 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
             default:
                 break;
         }
-        return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()]), mWvMonth.getValue(), mWvDay.getValue(),
+        return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()-1]), mWvMonth.getValue(), mWvDay.getValue(),
                 mWvHour.getValue(), mWvMinute.getValue(), mWvSecond.getValue()};
     }
 

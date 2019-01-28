@@ -23,7 +23,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation rootProject.ext.lib_appcompat
+    implementation rootProject.ext.appcompat
 
     api project(path: ':libDialogFragment')
 }

@@ -11,6 +11,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation rootProject.ext.lib_appcompat
-    implementation 'com.github.rhinoSp:LibWheelView:v1.0.1'
+    implementation rootProject.ext.appcompat
+    implementation rootProject.ext.LibWheelView
 }
