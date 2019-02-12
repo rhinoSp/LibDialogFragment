@@ -367,7 +367,6 @@ public abstract class BaseDialogFragment extends DialogFragment {
         params.height = mParentViewHeight + topMargin > getScreenHeight(getContext()) - getStatusBarHeight(getContext())
                 ? getScreenHeight(getContext()) - getStatusBarHeight(getContext()) - topMargin - mMarginTopOrBottom
                 : mParentViewHeight;
-
     }
 
     /**
@@ -478,7 +477,6 @@ public abstract class BaseDialogFragment extends DialogFragment {
         WindowManager manager = (WindowManager) ctx
                 .getSystemService(Context.WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
-
         return display.getHeight();
     }
 

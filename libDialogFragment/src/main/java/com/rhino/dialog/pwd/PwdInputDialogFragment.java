@@ -145,7 +145,7 @@ public class PwdInputDialogFragment extends BaseSimpleDialogFragment {
         mPwdInputEditText.setBackgroundColor(mEditBackgroundColor);
         mPwdInputEditText.setRimStrokeColor(mRimStrokeColor);
         mPwdInputEditText.setRimCorner(mRimCorner);
-        if (0 < mShowPicId) {
+        if (0 != mShowPicId) {
             mPwdInputEditText.setShowPassword(mShowPicId);
         } else if (!TextUtils.isEmpty(mShowStr)) {
             mPwdInputEditText.setShowPassword(mShowStr);

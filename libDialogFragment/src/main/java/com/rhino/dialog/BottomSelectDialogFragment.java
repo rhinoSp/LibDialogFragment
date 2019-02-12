@@ -506,7 +506,8 @@ public class BottomSelectDialogFragment extends BaseDialogFragment implements Vi
      * @param colorStateList ColorStateList
      * @return BottomSelectDialogFragment
      */
-    public void setItemCancelTextColorStateList(ColorStateList colorStateList) {
+    public BottomSelectDialogFragment setItemCancelTextColorStateList(ColorStateList colorStateList) {
         this.mItemCancelTextColorStateList = colorStateList;
+        return this;
     }
 }

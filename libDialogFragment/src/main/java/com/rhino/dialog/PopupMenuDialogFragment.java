@@ -20,7 +20,6 @@ public class PopupMenuDialogFragment extends BaseDialogFragment {
      */
     private LinearLayout mLlContainer;
 
-
     public PopupMenuDialogFragment() {
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AnimationAlphaDialogNoDim);
     }
@@ -38,10 +37,7 @@ public class PopupMenuDialogFragment extends BaseDialogFragment {
     @Override
     protected void initView() {
         mLlContainer = findSubViewById(R.id.popup_menu_dialog_ll);
-
     }
-
-
 
 
 
