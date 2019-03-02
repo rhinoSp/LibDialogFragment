@@ -9,7 +9,7 @@ ext {
     apkVersionCode              = 1
 
     appcompat                   = 'com.android.support:appcompat-v7:28.0.0'
-    LibWheelView                = 'com.github.rhinoSp:LibWheelView:v1.0.2'
+    LibWheelView                = 'com.github.rhinoSp:LibWheelView:v1.0.3'
 
 }
 
