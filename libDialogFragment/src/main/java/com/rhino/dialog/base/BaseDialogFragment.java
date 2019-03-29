@@ -369,7 +369,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
         params.leftMargin = leftMargin;
         params.width = mParentViewWidth;
         params.height = mParentViewHeight + topMargin > getScreenHeight(getContext()) - getStatusBarHeight(getContext())
-                ? getScreenHeight(getContext()) - getStatusBarHeight(getContext()) - topMargin - topMargin
+                ? getScreenHeight(getContext()) - getStatusBarHeight(getContext()) - topMargin - mMarginTop
                 : mParentViewHeight;
     }
 
