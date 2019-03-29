@@ -3,6 +3,7 @@ package com.rhino.dialog.picker;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,12 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
 
     public WheelView mWvYear, mWvMonth, mWvDay, mWvHour, mWvMinute, mWvSecond;
     public String[] yearArr;
+    public int currentYear = -1;
+    public int currentMonth = -1;
+    public int currentDay = -1;
+    public int currentHour = -1;
+    public int currentMinute = -1;
+    public int currentSecond = -1;
 
     public DatePickerDialogFragment() {
         setTitle("Choose time");
@@ -134,11 +141,13 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
     public void initYear(long start, long end) {
         int currentValue = 0;
         int index = 0;
-        String currentYear = formatTime(System.currentTimeMillis(), "yyyy");
+        if (currentYear < 0) {
+            currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        }
         List<String> list = new ArrayList<>();
         for (long timestamp = start; timestamp < end; ) {
             String year = formatTime(timestamp, "yyyy");
-            if (year.equals(currentYear)) {
+            if (year.equals(String.valueOf(currentYear))) {
                 currentValue = index + 1;
             }
             list.add(year);
@@ -158,7 +167,10 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
 
     public void initDefaultMoth() {
         initMonth();
-        mWvMonth.setValue(Calendar.getInstance().get(Calendar.MONTH) + 1);
+        if (currentMonth < 0) {
+            currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        }
+        mWvMonth.setValue(currentMonth);
     }
 
     public void initMonth() {
@@ -173,8 +185,17 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
     }
 
     public void initDefaultDay() {
-        initDay(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH) + 1);
-        mWvDay.setValue(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        if (currentYear < 0) {
+            currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        }
+        if (currentMonth < 0) {
+            currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        }
+        if (currentDay < 0) {
+            currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        }
+        initDay(currentYear, currentMonth);
+        mWvDay.setValue(currentDay);
     }
 
     public void initDay(int year, int month) {
@@ -191,15 +212,48 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
     }
 
     public void initDefaultHour() {
-        mWvHour.setValue(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+        if (currentHour < 0) {
+            currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        }
+        mWvHour.setValue(currentHour);
     }
 
     public void initDefaultMinute() {
-        mWvMinute.setValue(Calendar.getInstance().get(Calendar.MINUTE));
+        if (currentMinute < 0) {
+            currentMinute = Calendar.getInstance().get(Calendar.MINUTE);
+        }
+        mWvMinute.setValue(currentMinute);
     }
 
     public void initDefaultSecond() {
-        mWvSecond.setValue(Calendar.getInstance().get(Calendar.SECOND));
+        if (currentSecond < 0) {
+            currentSecond = Calendar.getInstance().get(Calendar.SECOND);
+        }
+        mWvSecond.setValue(currentSecond);
+    }
+
+    public void setCurrentYear(int currentYear) {
+        this.currentYear = currentYear;
+    }
+
+    public void setCurrentMonth(int currentMonth) {
+        this.currentMonth = currentMonth;
+    }
+
+    public void setCurrentDay(int currentDay) {
+        this.currentDay = currentDay;
+    }
+
+    public void setCurrentHour(int currentHour) {
+        this.currentHour = currentHour;
+    }
+
+    public void setCurrentMinute(int currentMinute) {
+        this.currentMinute = currentMinute;
+    }
+
+    public void setCurrentSecond(int currentSecond) {
+        this.currentSecond = currentSecond;
     }
 
     public static String formatTime(Long time, String format) {

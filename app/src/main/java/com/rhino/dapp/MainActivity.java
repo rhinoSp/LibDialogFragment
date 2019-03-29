@@ -144,6 +144,12 @@ public class MainActivity extends AppCompatActivity {
             dialogFragment.show(this);
         } else if (R.id.date_dialog1 == id) {
             DatePickerDialogFragment dialogFragment = new DatePickerDialogFragment();
+            dialogFragment.setCurrentYear(1999);
+            dialogFragment.setCurrentMonth(2);
+            dialogFragment.setCurrentDay(29);
+            dialogFragment.setCurrentHour(13);
+            dialogFragment.setCurrentMinute(56);
+            dialogFragment.setCurrentSecond(45);
             dialogFragment.setStyle(DatePickerDialogFragment.STYLE_YYYY_MM_DD_HH_MM_SS);
             dialogFragment.setPositiveKeyClickListener(new IOnDialogKeyClickListener<DatePickerDialogFragment>() {
                 @Override

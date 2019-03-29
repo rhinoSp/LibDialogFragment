@@ -36,9 +36,13 @@ public abstract class BaseDialogFragment extends DialogFragment {
      **/
     public static final int DF_POPUP_WINDOW_MARGIN_TOP_OR_BOTTOM = 13;
     /**
-     * the popup window margin top or bottom.
+     * the popup window margin bottom.
      **/
-    public int mMarginTopOrBottom = DF_POPUP_WINDOW_MARGIN_TOP_OR_BOTTOM;
+    public int mMarginBottom = DF_POPUP_WINDOW_MARGIN_TOP_OR_BOTTOM;
+    /**
+     * the popup window margin top.
+     **/
+    public int mMarginTop = DF_POPUP_WINDOW_MARGIN_TOP_OR_BOTTOM;
     /**
      * The left or right margin of popup window.
      **/
@@ -327,35 +331,35 @@ public abstract class BaseDialogFragment extends DialogFragment {
         switch (mAlignType) {
             case ALIGN_TYPE_THIS_BOTTOM:
                 leftMargin = 0;
-                topMargin = this.mMarginTopOrBottom + alignViewLocation[1] - this.getStatusBarHeight(this.getContext()) + this.mAlignView.getHeight();
+                topMargin = this.mMarginTop + alignViewLocation[1] - this.getStatusBarHeight(this.getContext()) + this.mAlignView.getHeight();
                 break;
             case ALIGN_TYPE_THIS_BOTTOM_WINDOW_LEFT:
                 leftMargin = mMarginRightOrLeft + alignViewLocation[0];
-                topMargin = mMarginTopOrBottom + alignViewLocation[1] - getStatusBarHeight(getContext()) + mAlignView.getHeight();
+                topMargin = mMarginTop + alignViewLocation[1] - getStatusBarHeight(getContext()) + mAlignView.getHeight();
                 break;
             case ALIGN_TYPE_THIS_BOTTOM_CENTER:
                 leftMargin = alignViewLocation[0] + mAlignView.getWidth() / 2 - mParentViewWidth / 2;
-                topMargin = mMarginTopOrBottom + alignViewLocation[1] - getStatusBarHeight(getContext()) + mAlignView.getHeight();
+                topMargin = mMarginTop + alignViewLocation[1] - getStatusBarHeight(getContext()) + mAlignView.getHeight();
                 break;
             case ALIGN_TYPE_THIS_BOTTOM_WINDOW_RIGHT:
                 leftMargin = alignViewLocation[0] + mAlignView.getWidth() - mMarginRightOrLeft - mParentViewWidth;
-                topMargin = mMarginTopOrBottom + alignViewLocation[1] - getStatusBarHeight(getContext()) + mAlignView.getHeight();
+                topMargin = mMarginTop + alignViewLocation[1] - getStatusBarHeight(getContext()) + mAlignView.getHeight();
                 break;
             case ALIGN_TYPE_THIS_TOP:
                 leftMargin = 0;
-                topMargin = alignViewLocation[1] - this.getStatusBarHeight(this.getContext()) - this.mParentViewHeight - this.mMarginTopOrBottom;
+                topMargin = alignViewLocation[1] - this.getStatusBarHeight(this.getContext()) - this.mParentViewHeight - this.mMarginBottom;
                 break;
             case ALIGN_TYPE_THIS_TOP_WINDOW_LEFT:
                 leftMargin = mMarginRightOrLeft + alignViewLocation[0];
-                topMargin = alignViewLocation[1] - getStatusBarHeight(getContext()) - mParentViewHeight - mMarginTopOrBottom;
+                topMargin = alignViewLocation[1] - getStatusBarHeight(getContext()) - mParentViewHeight - mMarginBottom;
                 break;
             case ALIGN_TYPE_THIS_TOP_CENTER:
                 leftMargin = alignViewLocation[0] + mAlignView.getWidth() / 2 - mParentViewWidth / 2;
-                topMargin = alignViewLocation[1] - getStatusBarHeight(getContext()) - mParentViewHeight - mMarginTopOrBottom;
+                topMargin = alignViewLocation[1] - getStatusBarHeight(getContext()) - mParentViewHeight - mMarginBottom;
                 break;
             case ALIGN_TYPE_THIS_TOP_WINDOW_RIGHT:
                 leftMargin = alignViewLocation[0] + mAlignView.getWidth() - mMarginRightOrLeft - mParentViewWidth;
-                topMargin = alignViewLocation[1] - getStatusBarHeight(getContext()) - mParentViewHeight - mMarginTopOrBottom;
+                topMargin = alignViewLocation[1] - getStatusBarHeight(getContext()) - mParentViewHeight - mMarginBottom;
                 break;
             default:
                 break;
@@ -365,7 +369,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
         params.leftMargin = leftMargin;
         params.width = mParentViewWidth;
         params.height = mParentViewHeight + topMargin > getScreenHeight(getContext()) - getStatusBarHeight(getContext())
-                ? getScreenHeight(getContext()) - getStatusBarHeight(getContext()) - topMargin - mMarginTopOrBottom
+                ? getScreenHeight(getContext()) - getStatusBarHeight(getContext()) - topMargin - topMargin
                 : mParentViewHeight;
     }
 
@@ -422,6 +426,30 @@ public abstract class BaseDialogFragment extends DialogFragment {
      */
     public void setParentViewHeight(int height) {
         this.mParentViewHeight = height;
+    }
+
+    /**
+     * Set the popup window margin bottom.
+     * @param mMarginBottom the popup window margin bottom.
+     */
+    public void setMarginBottom(int mMarginBottom) {
+        this.mMarginBottom = mMarginBottom;
+    }
+
+    /**
+     * Set the popup window margin top.
+     * @param mMarginTop the popup window margin top.
+     */
+    public void setMarginTop(int mMarginTop) {
+        this.mMarginTop = mMarginTop;
+    }
+
+    /**
+     * Set the right or left margin of popup window.
+     * @param mMarginRightOrLeft the right or left margin of popup window.
+     */
+    public void setMarginRightOrLeft(int mMarginRightOrLeft) {
+        this.mMarginRightOrLeft = mMarginRightOrLeft;
     }
 
     /**
