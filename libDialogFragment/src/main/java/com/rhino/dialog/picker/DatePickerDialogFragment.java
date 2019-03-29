@@ -35,6 +35,8 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
     public static final int STYLE_HH_MM_SS = 4;
     public static final int STYLE_HH_MM = 5;
     public int mStyle = STYLE_YYYY_MM_DD_HH_MM_SS;
+    public int mYearCount = 30;
+    public boolean mYearOnlyCurrentBefore = false;
 
     public WheelView mWvYear, mWvMonth, mWvDay, mWvHour, mWvMinute, mWvSecond;
     public String[] yearArr;
@@ -132,9 +134,18 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
         }
     }
 
+    public void setYearCount(int mYearCount) {
+        this.mYearCount = mYearCount;
+    }
+
+    public void setYearOnlyCurrentBefore(boolean mYearOnlyCurrentBefore) {
+        this.mYearOnlyCurrentBefore = mYearOnlyCurrentBefore;
+    }
+
     public void initDefaultYear() {
-        long start = System.currentTimeMillis() - 30 * MILLISECONDS_PER_YEAR;
-        long end = System.currentTimeMillis() + 30 * MILLISECONDS_PER_YEAR;
+        int yearCountEnd = mYearOnlyCurrentBefore ? 0 : mYearCount;
+        long start = System.currentTimeMillis() - mYearCount * MILLISECONDS_PER_YEAR;
+        long end = System.currentTimeMillis() + yearCountEnd * MILLISECONDS_PER_YEAR;
         initYear(start, end);
     }
 
@@ -145,7 +156,7 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
             currentYear = Calendar.getInstance().get(Calendar.YEAR);
         }
         List<String> list = new ArrayList<>();
-        for (long timestamp = start; timestamp < end; ) {
+        for (long timestamp = start; timestamp <= end; ) {
             String year = formatTime(timestamp, "yyyy");
             if (year.equals(String.valueOf(currentYear))) {
                 currentValue = index + 1;

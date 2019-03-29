@@ -151,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
             dialogFragment.setCurrentMinute(56);
             dialogFragment.setCurrentSecond(45);
             dialogFragment.setStyle(DatePickerDialogFragment.STYLE_YYYY_MM_DD_HH_MM_SS);
+            dialogFragment.setYearCount(60);
+            dialogFragment.setYearOnlyCurrentBefore(true);
             dialogFragment.setPositiveKeyClickListener(new IOnDialogKeyClickListener<DatePickerDialogFragment>() {
                 @Override
                 public void onClick(DatePickerDialogFragment dialogFragment) {
