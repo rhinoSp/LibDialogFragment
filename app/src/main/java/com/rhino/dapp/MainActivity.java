@@ -18,9 +18,12 @@ import com.rhino.dialog.pwd.PwdInputDialogFragment;
 import com.rhino.dialog.impl.IOnDialogKeyClickListener;
 import com.rhino.dialog.impl.DefaultDialogListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -157,7 +160,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DatePickerDialogFragment dialogFragment) {
                     dialogFragment.dismiss();
-                    showToast(Arrays.toString(dialogFragment.getDate()));
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒", Locale.getDefault());
+                    showToast(sdf.format(dialogFragment.getCalendar().getTime()));
                 }
             });
             dialogFragment.show(this);

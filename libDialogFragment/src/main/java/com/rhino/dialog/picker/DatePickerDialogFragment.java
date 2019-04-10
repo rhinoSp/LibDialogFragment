@@ -322,4 +322,17 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
                 mWvHour.getValue(), mWvMinute.getValue(), mWvSecond.getValue()};
     }
 
+    @NonNull
+    public Calendar getCalendar() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Integer.parseInt(yearArr[mWvYear.getValue()-1]),
+                mWvMonth.getValue(),
+                mWvDay.getValue(),
+                mWvHour.getValue(),
+                mWvMinute.getValue(),
+                mWvSecond.getValue()
+        );
+        return calendar;
+    }
+
 }

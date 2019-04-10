@@ -80,6 +80,10 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
      */
     protected Drawable mBackgroundDrawable;
     /**
+     * The drawable of title background.
+     */
+    protected Drawable mTitleBackgroundDrawable;
+    /**
      * The visibility state of tile.
      */
     protected int mTitleVisibility = View.VISIBLE;
@@ -232,6 +236,10 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
             mLlDialog.setBackgroundDrawable(mBackgroundDrawable);
         }
 
+        if (null != mTitleBackgroundDrawable) {
+            mTvTitle.setBackgroundDrawable(mTitleBackgroundDrawable);
+        }
+
         mTvTitle.setVisibility(mTitleVisibility);
         mTvTitle.setText(mTitleText);
         mTvTitle.setTextSize(mTitleTextSize);
@@ -324,6 +332,19 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
         this.mBackgroundDrawable = drawable;
         if (null != mLlDialog) {
             mLlDialog.setBackgroundDrawable(drawable);
+        }
+        return this;
+    }
+
+    /**
+     * Set the drawable of title background.
+     *
+     * @param drawable drawable
+     */
+    public BaseSimpleDialogFragment setTitleBackground(Drawable drawable) {
+        this.mTitleBackgroundDrawable = drawable;
+        if (null != mTvTitle) {
+            mTvTitle.setBackgroundDrawable(drawable);
         }
         return this;
     }
