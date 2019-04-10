@@ -172,7 +172,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DatePickerDialogFragment dialogFragment) {
                     dialogFragment.dismiss();
-                    showToast(Arrays.toString(dialogFragment.getDate()));
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分", Locale.getDefault());
+                    showToast(sdf.format(dialogFragment.getCalendar().getTime()));
                 }
             });
             dialogFragment.show(this);
@@ -183,7 +184,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DatePickerDialogFragment dialogFragment) {
                     dialogFragment.dismiss();
-                    showToast(Arrays.toString(dialogFragment.getDate()));
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日", Locale.getDefault());
+                    showToast(sdf.format(dialogFragment.getCalendar().getTime()));
                 }
             });
             dialogFragment.show(this);
@@ -194,7 +196,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DatePickerDialogFragment dialogFragment) {
                     dialogFragment.dismiss();
-                    showToast(Arrays.toString(dialogFragment.getDate()));
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH时mm分ss秒", Locale.getDefault());
+                    showToast(sdf.format(dialogFragment.getCalendar().getTime()));
                 }
             });
             dialogFragment.show(this);
@@ -205,7 +208,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DatePickerDialogFragment dialogFragment) {
                     dialogFragment.dismiss();
-                    showToast(Arrays.toString(dialogFragment.getDate()));
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH时mm分", Locale.getDefault());
+                    showToast(sdf.format(dialogFragment.getCalendar().getTime()));
                 }
             });
             dialogFragment.show(this);

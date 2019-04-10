@@ -90,8 +90,8 @@
             app:item_vertical_height="34dp"
             app:item_visible_count="5"
             app:orientation="vertical"
-            app:min_value="1"
-            app:max_value="24"
+            app:min_value="0"
+            app:max_value="23"
             app:label="时" />
 
         <com.rhino.wheel.WheelView
@@ -110,7 +110,7 @@
             app:item_vertical_height="34dp"
             app:item_visible_count="5"
             app:orientation="vertical"
-            app:min_value="1"
+            app:min_value="0"
             app:max_value="59"
             app:label="分" />
 
@@ -130,7 +130,7 @@
             app:item_vertical_height="34dp"
             app:item_visible_count="5"
             app:orientation="vertical"
-            app:min_value="1"
+            app:min_value="0"
             app:max_value="59"
             app:label="秒"/>
 

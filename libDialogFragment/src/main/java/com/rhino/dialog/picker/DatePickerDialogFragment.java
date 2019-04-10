@@ -171,7 +171,7 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
         mWvYear.setOnValueChangedListener(new WheelView.OnValueChangeListener() {
             @Override
             public void onValueChange(WheelView wheelView, int oldVal, int newVal) {
-                initDay(Integer.parseInt(yearArr[newVal-1]), mWvMonth.getValue());
+                initDay(Integer.parseInt(yearArr[newVal - 1]), mWvMonth.getValue());
             }
         });
     }
@@ -190,7 +190,7 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
         mWvMonth.setOnValueChangedListener(new WheelView.OnValueChangeListener() {
             @Override
             public void onValueChange(WheelView wheelView, int oldVal, int newVal) {
-                initDay(Integer.parseInt(yearArr[mWvYear.getValue()-1]), newVal);
+                initDay(Integer.parseInt(yearArr[mWvYear.getValue() - 1]), newVal);
             }
         });
     }
@@ -226,21 +226,21 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
         if (currentHour < 0) {
             currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         }
-        mWvHour.setValue(currentHour);
+        mWvHour.setValue(currentHour + 1);
     }
 
     public void initDefaultMinute() {
         if (currentMinute < 0) {
             currentMinute = Calendar.getInstance().get(Calendar.MINUTE);
         }
-        mWvMinute.setValue(currentMinute);
+        mWvMinute.setValue(currentMinute + 1);
     }
 
     public void initDefaultSecond() {
         if (currentSecond < 0) {
             currentSecond = Calendar.getInstance().get(Calendar.SECOND);
         }
-        mWvSecond.setValue(currentSecond);
+        mWvSecond.setValue(currentSecond + 1);
     }
 
     public void setCurrentYear(int currentYear) {
@@ -301,37 +301,28 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
     }
 
     @NonNull
-    public int[] getDate() {
+    public Calendar getCalendar() {
+        Calendar calendar = Calendar.getInstance();
         switch (mStyle) {
             case STYLE_YYYY_MM_DD_HH_MM_SS:
-                return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()-1]), mWvMonth.getValue(), mWvDay.getValue(),
-                        mWvHour.getValue(), mWvMinute.getValue(), mWvSecond.getValue()};
+                calendar.set(Calendar.SECOND, mWvSecond.getValue() - 1);
             case STYLE_YYYY_MM_DD_HH_MM:
-                return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()-1]), mWvMonth.getValue(), mWvDay.getValue(),
-                        mWvHour.getValue(), mWvMinute.getValue()};
+                calendar.set(Calendar.HOUR_OF_DAY, mWvHour.getValue() - 1);
+                calendar.set(Calendar.MINUTE, mWvMinute.getValue() - 1);
             case STYLE_YYYY_MM_DD:
-                return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()-1]), mWvMonth.getValue(), mWvDay.getValue()};
+                calendar.set(Calendar.YEAR, Integer.parseInt(yearArr[mWvYear.getValue() - 1]));
+                calendar.set(Calendar.MONTH, mWvMonth.getValue() - 1);
+                calendar.set(Calendar.DAY_OF_MONTH, mWvDay.getValue());
+                break;
             case STYLE_HH_MM_SS:
-                return new int[] {mWvHour.getValue(), mWvMinute.getValue(), mWvSecond.getValue()};
+                calendar.set(Calendar.SECOND, mWvSecond.getValue() - 1);
             case STYLE_HH_MM:
-                return new int[] {mWvHour.getValue(), mWvMinute.getValue()};
+                calendar.set(Calendar.HOUR_OF_DAY, mWvHour.getValue() - 1);
+                calendar.set(Calendar.MINUTE, mWvMinute.getValue() - 1);
+                break;
             default:
                 break;
         }
-        return new int[] {Integer.parseInt(yearArr[mWvYear.getValue()-1]), mWvMonth.getValue(), mWvDay.getValue(),
-                mWvHour.getValue(), mWvMinute.getValue(), mWvSecond.getValue()};
-    }
-
-    @NonNull
-    public Calendar getCalendar() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Integer.parseInt(yearArr[mWvYear.getValue()-1]),
-                mWvMonth.getValue(),
-                mWvDay.getValue(),
-                mWvHour.getValue(),
-                mWvMinute.getValue(),
-                mWvSecond.getValue()
-        );
         return calendar;
     }
 
