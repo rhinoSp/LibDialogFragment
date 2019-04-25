@@ -37,6 +37,7 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
     public int mStyle = STYLE_YYYY_MM_DD_HH_MM_SS;
     public int mYearCount = 30;
     public boolean mYearOnlyCurrentBefore = false;
+    public boolean mYearOnlyCurrentAfter = false;
 
     public WheelView mWvYear, mWvMonth, mWvDay, mWvHour, mWvMinute, mWvSecond;
     public String[] yearArr;
@@ -142,10 +143,22 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
         this.mYearOnlyCurrentBefore = mYearOnlyCurrentBefore;
     }
 
+    public void setYearOnlyCurrentAfter(boolean mYearOnlyCurrentAfter) {
+        this.mYearOnlyCurrentAfter = mYearOnlyCurrentAfter;
+    }
+
     public void initDefaultYear() {
-        int yearCountEnd = mYearOnlyCurrentBefore ? 0 : mYearCount;
-        long start = System.currentTimeMillis() - mYearCount * MILLISECONDS_PER_YEAR;
-        long end = System.currentTimeMillis() + yearCountEnd * MILLISECONDS_PER_YEAR;
+        long start, end;
+        if (mYearOnlyCurrentBefore) {
+            start = System.currentTimeMillis() - mYearCount * MILLISECONDS_PER_YEAR;
+            end = System.currentTimeMillis();
+        } else if (mYearOnlyCurrentAfter) {
+            start = System.currentTimeMillis();
+            end = System.currentTimeMillis() + mYearCount * MILLISECONDS_PER_YEAR;
+        } else {
+            start = System.currentTimeMillis() - mYearCount / 2 * MILLISECONDS_PER_YEAR;
+            end = System.currentTimeMillis() + mYearCount / 2 * MILLISECONDS_PER_YEAR;
+        }
         initYear(start, end);
     }
 

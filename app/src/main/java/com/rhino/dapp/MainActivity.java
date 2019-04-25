@@ -168,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (R.id.date_dialog2 == id) {
             DatePickerDialogFragment dialogFragment = new DatePickerDialogFragment();
             dialogFragment.setStyle(DatePickerDialogFragment.STYLE_YYYY_MM_DD_HH_MM);
+            dialogFragment.setYearOnlyCurrentAfter(true);
             dialogFragment.setPositiveKeyClickListener(new IOnDialogKeyClickListener<DatePickerDialogFragment>() {
                 @Override
                 public void onClick(DatePickerDialogFragment dialogFragment) {
