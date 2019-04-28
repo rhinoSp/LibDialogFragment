@@ -34,7 +34,8 @@
                 android:layout_height="@dimen/base_simple_dialog_title_icon_height"
                 android:layout_alignParentRight="true"
                 android:padding="@dimen/base_simple_dialog_title_icon_padding"
-                android:src="@mipmap/ic_dialog_close" />
+                android:src="@mipmap/ic_dialog_close"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 

@@ -103,7 +103,7 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
     /**
      * The visibility state of tile close icon.
      */
-    protected int mTitleCloseIconVisibility = View.VISIBLE;
+    protected int mTitleCloseIconVisibility = View.GONE;
     /**
      * The color of tile close icon.
      */
