@@ -52,7 +52,7 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AnimationTranBottomDialog);
         setWindowGravity(Gravity.BOTTOM);
         setWindowWidth(WindowManager.LayoutParams.MATCH_PARENT);
-//        setTitleVisibility(View.GONE);
+        setTitleCloseIconVisibility(View.GONE);
     }
 
     @Override
