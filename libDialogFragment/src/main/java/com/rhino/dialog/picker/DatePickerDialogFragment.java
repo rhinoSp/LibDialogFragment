@@ -3,7 +3,6 @@ package com.rhino.dialog.picker;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +36,7 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
     public int mStyle = STYLE_YYYY_MM_DD_HH_MM_SS;
     public int mYearCount = 30;
     public boolean mYearOnlyCurrentBefore = false;
+    public boolean mYearOnlyCurrentAfter = false;
 
     public WheelView mWvYear, mWvMonth, mWvDay, mWvHour, mWvMinute, mWvSecond;
     public String[] yearArr;
@@ -142,9 +142,14 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
         this.mYearOnlyCurrentBefore = mYearOnlyCurrentBefore;
     }
 
+    public void setYearOnlyCurrentAfter(boolean mYearOnlyCurrentAfter) {
+        this.mYearOnlyCurrentAfter = mYearOnlyCurrentAfter;
+    }
+
     public void initDefaultYear() {
         int yearCountEnd = mYearOnlyCurrentBefore ? 0 : mYearCount;
-        long start = System.currentTimeMillis() - mYearCount * MILLISECONDS_PER_YEAR;
+        int yearCountStart = mYearOnlyCurrentAfter ? 0 : mYearCount;
+        long start = System.currentTimeMillis() - yearCountStart * MILLISECONDS_PER_YEAR;
         long end = System.currentTimeMillis() + yearCountEnd * MILLISECONDS_PER_YEAR;
         initYear(start, end);
     }
