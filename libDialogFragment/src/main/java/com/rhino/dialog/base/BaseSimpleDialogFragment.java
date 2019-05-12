@@ -229,7 +229,7 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
     protected void baseOnClickListener(View v) {
         super.baseOnClickListener(v);
         if (v == mIvTitleClose) {
-            onClickNegativeKey();
+            onClickCloseKey();
         } else if (v == mTvNegativeKey) {
             onClickNegativeKey();
         } else if (v == mTvPositiveKey) {
