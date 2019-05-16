@@ -419,12 +419,12 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
                 mTvTitle.setPadding((int) getResources().getDimension(R.dimen.base_simple_dialog_title_icon_width),
                         mTvTitle.getPaddingTop(),
                         (int) getResources().getDimension(R.dimen.base_simple_dialog_title_icon_width),
-                        mTvTitle.getPaddingRight());
+                        mTvTitle.getPaddingBottom());
             } else {
                 mTvTitle.setPadding((int) getResources().getDimension(R.dimen.base_simple_dialog_title_text_padding_left),
                         mTvTitle.getPaddingTop(),
                         (int) getResources().getDimension(R.dimen.base_simple_dialog_title_text_padding_right),
-                        mTvTitle.getPaddingRight());
+                        mTvTitle.getPaddingBottom());
             }
         }
         return this;
