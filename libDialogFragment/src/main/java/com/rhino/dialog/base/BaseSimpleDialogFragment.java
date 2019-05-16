@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,7 +40,15 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
     /**
      * The title view.
      */
+    protected View mVTitle;
+    /**
+     * The title TextView.
+     */
     protected TextView mTvTitle;
+    /**
+     * The title ImageView.
+     */
+    protected ImageView mIvTitleClose;
     /**
      * The line bottom title view.
      */
@@ -67,6 +76,10 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
     protected View mViewKeyCenterLine;
 
     /**
+     * The close key listener.
+     */
+    protected IOnDialogKeyClickListener mCloseListener;
+    /**
      * The negative key listener.
      */
     protected IOnDialogKeyClickListener mNegativeListener;
@@ -87,6 +100,15 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
      * The visibility state of tile.
      */
     protected int mTitleVisibility = View.VISIBLE;
+    /**
+     * The visibility state of tile close icon.
+     */
+    protected int mTitleCloseIconVisibility = View.GONE;
+    /**
+     * The color of tile close icon.
+     */
+    @ColorInt
+    protected int mTitleCloseIconColor = 0xFF000000;
     /**
      * The title text.
      */
@@ -206,7 +228,9 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
     @Override
     protected void baseOnClickListener(View v) {
         super.baseOnClickListener(v);
-        if (v== mTvNegativeKey) {
+        if (v == mIvTitleClose) {
+            onClickCloseKey();
+        } else if (v == mTvNegativeKey) {
             onClickNegativeKey();
         } else if (v == mTvPositiveKey) {
             onClickPositiveKey();
@@ -220,7 +244,9 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
      */
     protected void initBaseView(View parent) {
         mLlDialog = findSubViewById(R.id.base_simple_dialog_ll, parent);
+        mVTitle = findSubViewById(R.id.base_simple_dialog_title_container, parent);
         mTvTitle = findSubViewById(R.id.base_simple_dialog_title, parent);
+        mIvTitleClose = findSubViewById(R.id.base_simple_dialog_title_close, parent);
         mViewTitleBottomLine = findSubViewById(R.id.base_simple_dialog_title_bottom_line, parent);
         mViewKeyTopLine = findSubViewById(R.id.base_simple_dialog_key_top_line, parent);
         mViewKeyCenterLine = findSubViewById(R.id.base_simple_dialog_key_center_line, parent);
@@ -237,48 +263,56 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
         }
 
         if (null != mTitleBackgroundDrawable) {
-            mTvTitle.setBackgroundDrawable(mTitleBackgroundDrawable);
+            mVTitle.setBackgroundDrawable(mTitleBackgroundDrawable);
         }
 
-        mTvTitle.setVisibility(mTitleVisibility);
-        mTvTitle.setText(mTitleText);
-        mTvTitle.setTextSize(mTitleTextSize);
-        mTvTitle.setTextColor(mTitleTextColor);
+        setTitleVisibility(mTitleVisibility);
+        setTitleCloseIconVisibility(mTitleCloseIconVisibility);
+        setTitleCloseIconColor(mTitleCloseIconColor);
+        setTitle(mTitleText);
+        setTitleTextSize(mTitleTextSize);
+        setTitleTextColor(mTitleTextColor);
+        setTitleBottomLineVisibility(mTitleBottomLineVisibility);
+        setTitleBottomLineColor(mTitleBottomLineColor);
 
-        mViewTitleBottomLine.setVisibility(mTitleBottomLineVisibility);
-        mViewTitleBottomLine.setBackgroundColor(mTitleBottomLineColor);
+        setKeyTopLineVisibility(mKeyTopLineVisibility);
+        setKeyTopLineColor(mKeyTopLineColor);
+        setKeyCenterLineVisibility(mKeyCenterLineVisibility);
+        setKeyCenterLineColor(mKeyCenterLineColor);
 
-        mViewKeyTopLine.setVisibility(mKeyTopLineVisibility);
-        mViewKeyTopLine.setBackgroundColor(mKeyTopLineColor);
-
-        mViewKeyCenterLine.setVisibility(mKeyCenterLineVisibility);
-        mViewKeyCenterLine.setBackgroundColor(mKeyCenterLineColor);
-
-        mTvNegativeKey.setVisibility(mNegativeKeyVisibility);
-        if (null != mNegativeKeyBackgroundDrawable) {
-            mTvNegativeKey.setBackgroundDrawable(mNegativeKeyBackgroundDrawable);
-        }
-        mTvNegativeKey.setText(mNegativeKeyText);
-        mTvNegativeKey.setTextSize(mNegativeKeyTextSize);
+        setNegativeKeyVisibility(mNegativeKeyVisibility);
+        setNegativeKeyBackground(mNegativeKeyBackgroundDrawable);
+        setNegativeKeyText(mNegativeKeyText);
+        setNegativeKeyTextSize(mNegativeKeyTextSize);
         if (null != mNegativeKeyTextColors) {
-            mTvNegativeKey.setTextColor(mNegativeKeyTextColors);
+            setNegativeKeyColor(mNegativeKeyTextColors);
         } else {
-            mTvNegativeKey.setTextColor(mNegativeKeyTextColor);
+            setNegativeKeyColor(mNegativeKeyTextColor);
         }
 
-        mTvPositiveKey.setVisibility(mPositiveKeyVisibility);
-        if (null != mPositiveKeyBackgroundDrawable) {
-            mTvPositiveKey.setBackgroundDrawable(mPositiveKeyBackgroundDrawable);
-        }
-        mTvPositiveKey.setText(mPositiveKeyText);
-        mTvPositiveKey.setTextSize(mPositiveKeyTextSize);
+        setPositiveKeyVisibility(mPositiveKeyVisibility);
+        setPositiveKeyBackground(mPositiveKeyBackgroundDrawable);
+        setPositiveKeyText(mPositiveKeyText);
+        setPositiveKeyTextSize(mPositiveKeyTextSize);
         if (null != mPositiveKeyTextColors) {
-            mTvPositiveKey.setTextColor(mPositiveKeyTextColors);
+            setPositiveKeyColor(mPositiveKeyTextColors);
         } else {
-            mTvPositiveKey.setTextColor(mPositiveKeyTextColor);
+            setPositiveKeyColor(mPositiveKeyTextColor);
         }
 
-        setBaseOnClickListener(mTvNegativeKey, mTvPositiveKey);
+        setBaseOnClickListener(mIvTitleClose, mTvNegativeKey, mTvPositiveKey);
+    }
+
+
+    /**
+     * On click close key.
+     */
+    protected void onClickCloseKey() {
+        if (null != mCloseListener) {
+            mCloseListener.onClick(this);
+        } else {
+            dismiss();
+        }
     }
 
     /**
@@ -301,6 +335,16 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
         } else {
             dismiss();
         }
+    }
+
+    /**
+     * Set the close key click listener.
+     *
+     * @param listener the listener
+     */
+    public BaseSimpleDialogFragment setCloseKeyClickListener(IOnDialogKeyClickListener listener) {
+        this.mCloseListener = listener;
+        return this;
     }
 
     /**
@@ -343,21 +387,59 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
      */
     public BaseSimpleDialogFragment setTitleBackground(Drawable drawable) {
         this.mTitleBackgroundDrawable = drawable;
-        if (null != mTvTitle) {
-            mTvTitle.setBackgroundDrawable(drawable);
+        if (null != mVTitle) {
+            mVTitle.setBackgroundDrawable(drawable);
         }
         return this;
     }
 
     /**
-     * Set the visibility state of this view.
+     * Set the visibility state of title.
      *
      * @param visibility One of {@link View#VISIBLE}, {@link View#INVISIBLE}, or {@link View#GONE}.
      */
     public BaseSimpleDialogFragment setTitleVisibility(int visibility) {
         this.mTitleVisibility = visibility;
-        if (null != mTvTitle) {
-            mTvTitle.setVisibility(visibility);
+        if (null != mVTitle) {
+            mVTitle.setVisibility(visibility);
+        }
+        return this;
+    }
+
+    /**
+     * Set the visibility state of close icon.
+     *
+     * @param visibility One of {@link View#VISIBLE}, {@link View#INVISIBLE}, or {@link View#GONE}.
+     */
+    public BaseSimpleDialogFragment setTitleCloseIconVisibility(int visibility) {
+        this.mTitleCloseIconVisibility = visibility;
+        if (null != mIvTitleClose) {
+            mIvTitleClose.setVisibility(visibility);
+            if (visibility == View.VISIBLE) {
+                mTvTitle.setPadding((int) getResources().getDimension(R.dimen.base_simple_dialog_title_icon_width),
+                        mTvTitle.getPaddingTop(),
+                        (int) getResources().getDimension(R.dimen.base_simple_dialog_title_icon_width),
+                        mTvTitle.getPaddingRight());
+            } else {
+                mTvTitle.setPadding((int) getResources().getDimension(R.dimen.base_simple_dialog_title_text_padding_left),
+                        mTvTitle.getPaddingTop(),
+                        (int) getResources().getDimension(R.dimen.base_simple_dialog_title_text_padding_right),
+                        mTvTitle.getPaddingRight());
+            }
+        }
+        return this;
+    }
+
+    /**
+     * Set the title text color.
+     *
+     * @param color the color
+     */
+    public BaseSimpleDialogFragment setTitleCloseIconColor(@ColorInt int color) {
+        this.mTitleCloseIconColor = color;
+        if (null != mIvTitleClose) {
+            mIvTitleClose.clearColorFilter();
+            mIvTitleClose.setColorFilter(mTitleCloseIconColor);
         }
         return this;
     }

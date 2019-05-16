@@ -3,7 +3,6 @@ package com.rhino.dialog.picker;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +52,6 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AnimationTranBottomDialog);
         setWindowGravity(Gravity.BOTTOM);
         setWindowWidth(WindowManager.LayoutParams.MATCH_PARENT);
-//        setTitleVisibility(View.GONE);
     }
 
     @Override
@@ -148,17 +146,10 @@ public class DatePickerDialogFragment extends BaseSimpleDialogFragment {
     }
 
     public void initDefaultYear() {
-        long start, end;
-        if (mYearOnlyCurrentBefore) {
-            start = System.currentTimeMillis() - mYearCount * MILLISECONDS_PER_YEAR;
-            end = System.currentTimeMillis();
-        } else if (mYearOnlyCurrentAfter) {
-            start = System.currentTimeMillis();
-            end = System.currentTimeMillis() + mYearCount * MILLISECONDS_PER_YEAR;
-        } else {
-            start = System.currentTimeMillis() - mYearCount / 2 * MILLISECONDS_PER_YEAR;
-            end = System.currentTimeMillis() + mYearCount / 2 * MILLISECONDS_PER_YEAR;
-        }
+        int yearCountEnd = mYearOnlyCurrentBefore ? 0 : mYearCount;
+        int yearCountStart = mYearOnlyCurrentAfter ? 0 : mYearCount;
+        long start = System.currentTimeMillis() - yearCountStart * MILLISECONDS_PER_YEAR;
+        long end = System.currentTimeMillis() + yearCountEnd * MILLISECONDS_PER_YEAR;
         initYear(start, end);
     }
 

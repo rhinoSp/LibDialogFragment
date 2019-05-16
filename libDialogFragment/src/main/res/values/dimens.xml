@@ -4,7 +4,11 @@
     <dimen name="base_simple_dialog_width">300dp</dimen>
     <dimen name="base_simple_dialog_height">180dp</dimen>
     <dimen name="base_simple_dialog_title_height">45dp</dimen>
-    <dimen name="base_simple_dialog_title_padding_h">10dp</dimen>
+    <dimen name="base_simple_dialog_title_text_padding_left">10dp</dimen>
+    <dimen name="base_simple_dialog_title_text_padding_right">10dp</dimen>
+    <dimen name="base_simple_dialog_title_icon_height">45dp</dimen>
+    <dimen name="base_simple_dialog_title_icon_width">45dp</dimen>
+    <dimen name="base_simple_dialog_title_icon_padding">12dp</dimen>
     <dimen name="base_simple_dialog_title_text_size">18sp</dimen>
     <dimen name="base_simple_dialog_key_height">45dp</dimen>
     <dimen name="base_simple_dialog_key_text_size">18sp</dimen>

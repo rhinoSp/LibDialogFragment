@@ -164,7 +164,7 @@ public class TipsDialogFragment extends BaseDialogFragment {
         super.baseOnClickListener(v);
         if (v == mLlCheckbox) {
             mLlCheckbox.setSelected(!mLlCheckbox.isSelected());
-            mIvCheckbox.setImageDrawable(mLlCheckbox.isSelected() ? getResources().getDrawable(R.mipmap.ic_tick) : new ColorDrawable());
+            mIvCheckbox.setImageDrawable(mLlCheckbox.isSelected() ? getResources().getDrawable(R.mipmap.ic_dialog_tick) : new ColorDrawable());
         } else if (v == mTvNegativeKey) {
             onClickNegativeKey();
         } else if (v == mTvPositiveKey) {

@@ -7,7 +7,6 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rhino.dialog.R;
 import com.rhino.dialog.base.BaseDialogFragment;
 
 
@@ -34,7 +33,7 @@ public class LoadingDialogFragment extends BaseDialogFragment {
     /**
      * The icon of loading.
      */
-    public int mLoadingIconResId = R.mipmap.ic_loading;
+    public int mLoadingIconResId = R.mipmap.ic_dialog_loading;
 
 
     @Override
