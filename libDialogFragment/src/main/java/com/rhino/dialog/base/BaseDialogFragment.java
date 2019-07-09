@@ -256,6 +256,29 @@ public abstract class BaseDialogFragment extends DialogFragment {
         this.mOutsideCancelable = cancelable;
     }
 
+    @Override
+    public void dismiss() {
+        if (this.getDialog() != null && this.getDialog().isShowing() && this.getDialog().getOwnerActivity() != null && !this.getDialog().getOwnerActivity().isFinishing()) {
+            super.dismissAllowingStateLoss();
+        }
+    }
+
+    /**
+     * Show this dialog.
+     *
+     * @param activity FragmentActivity
+     */
+    public void show(FragmentActivity activity) {
+        if (null != activity && !activity.isFinishing() && (null == this.getDialog() || !this.getDialog().isShowing())) {
+            hideSoftInputFromWindow(activity);
+            setFieldValue(this, "mDismissed", false);
+            setFieldValue(this, "mShownByMe", true);
+            FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+            ft.add(this, this.getClass().getName());
+            ft.commitAllowingStateLoss();
+        }
+    }
+
     /**
      * Parent click.
      */
@@ -468,32 +491,6 @@ public abstract class BaseDialogFragment extends DialogFragment {
             if (null != imm) {
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
-        }
-    }
-
-    /**
-     * dismiss
-     */
-    @Override
-    public void dismiss() {
-        if (this.getDialog() != null && this.getDialog().isShowing() && this.getDialog().getOwnerActivity() != null && !this.getDialog().getOwnerActivity().isFinishing()) {
-            super.dismissAllowingStateLoss();
-        }
-    }
-
-    /**
-     * Show this dialog.
-     *
-     * @param activity FragmentActivity
-     */
-    public void show(FragmentActivity activity) {
-        if (null != activity && !activity.isFinishing() && (null == this.getDialog() || !this.getDialog().isShowing())) {
-            hideSoftInputFromWindow(activity);
-            setFieldValue(this, "mDismissed", false);
-            setFieldValue(this, "mShownByMe", true);
-            FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-            ft.add(this, this.getClass().getName());
-            ft.commitAllowingStateLoss();
         }
     }
 
