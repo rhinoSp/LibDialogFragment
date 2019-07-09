@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ import android.widget.FrameLayout;
 
 import com.rhino.dialog.R;
 import com.rhino.dialog.impl.IOnDialogListener;
+
+import java.lang.reflect.Field;
 
 
 /**
@@ -469,13 +472,29 @@ public abstract class BaseDialogFragment extends DialogFragment {
     }
 
     /**
+     * dismiss
+     */
+    @Override
+    public void dismiss() {
+        if (this.getDialog() != null && this.getDialog().isShowing() && this.getDialog().getOwnerActivity() != null && !this.getDialog().getOwnerActivity().isFinishing()) {
+            super.dismissAllowingStateLoss();
+        }
+    }
+
+    /**
      * Show this dialog.
      *
      * @param activity FragmentActivity
      */
     public void show(FragmentActivity activity) {
-        hideSoftInputFromWindow(activity);
-        show(activity.getSupportFragmentManager(), getClass().getName());
+        if (null != activity && !activity.isFinishing() && (null == this.getDialog() || !this.getDialog().isShowing())) {
+            hideSoftInputFromWindow(activity);
+            setFieldValue(this, "mDismissed", false);
+            setFieldValue(this, "mShownByMe", true);
+            FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+            ft.add(this, this.getClass().getName());
+            ft.commitAllowingStateLoss();
+        }
     }
 
     /**
@@ -634,5 +653,33 @@ public abstract class BaseDialogFragment extends DialogFragment {
         return false;
     }
 
+    /**
+     * Get filed
+     */
+    public static Field getDeclaredField(Object object, String fieldName) {
+        Field field = null;
+        Class clazz = object.getClass();
+        while(clazz != Object.class) {
+            try {
+                field = clazz.getDeclaredField(fieldName);
+                return field;
+            } catch (Exception var5) {
+                clazz = clazz.getSuperclass();
+            }
+        }
+        return null;
+    }
 
+    /**
+     * Set filed value
+     */
+    public static void setFieldValue(Object object, String fieldName, Object value) {
+        Field field = getDeclaredField(object, fieldName);
+        field.setAccessible(true);
+        try {
+            field.set(object, value);
+        } catch (IllegalAccessException | IllegalArgumentException var5) {
+            var5.printStackTrace();
+        }
+    }
 }
