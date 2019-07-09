@@ -484,6 +484,9 @@ public abstract class BaseDialogFragment extends DialogFragment {
      * @param activity FragmentActivity
      */
     public void hideSoftInputFromWindow(FragmentActivity activity) {
+        if (null == activity) {
+            return;
+        }
         View view = activity.getWindow().peekDecorView();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) activity
