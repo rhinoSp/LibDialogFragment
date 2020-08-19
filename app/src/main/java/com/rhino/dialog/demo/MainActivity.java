@@ -1,4 +1,4 @@
-package com.rhino.dapp;
+package com.rhino.dialog.demo;
 
 import android.graphics.Color;
 import android.support.v4.app.DialogFragment;
@@ -14,6 +14,7 @@ import com.rhino.dialog.MsgDialogFragment;
 import com.rhino.dialog.PopupMenuDialogFragment;
 import com.rhino.dialog.TipsDialogFragment;
 import com.rhino.dialog.picker.DatePickerDialogFragment;
+import com.rhino.dialog.picker.SingleWheelPickerDialogFragment;
 import com.rhino.dialog.pwd.PwdInputDialogFragment;
 import com.rhino.dialog.impl.IOnDialogKeyClickListener;
 import com.rhino.dialog.impl.DefaultDialogListener;
@@ -28,16 +29,19 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+    private LoadingDialogFragment.LoadingDialogHelper loadingDialogHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        loadingDialogHelper = LoadingDialogFragment.getHelper(this);
     }
 
     public void onViewClick(View view) {
         int id = view.getId();
         if (R.id.loading_dialog == id) {
-            new LoadingDialogFragment().show(this);
+            loadingDialogHelper.showLoadingDialog();
         } else if (R.id.tips_dialog == id) {
             TipsDialogFragment dialogFragment = new TipsDialogFragment();
             dialogFragment.setTips("This is message message message message message message message " +
@@ -66,7 +70,9 @@ public class MainActivity extends AppCompatActivity {
             MsgDialogFragment dialogFragment = new MsgDialogFragment();
 //            dialogFragment.setAlignType(PopupMenuDialogFragment.ALIGN_TYPE_THIS_BOTTOM_WINDOW_RIGHT);
 //            dialogFragment.setAlignView(view);
+            dialogFragment.setOutsideCancelable(false);
             dialogFragment.setTitle("This is title title title title title title title title");
+//            dialogFragment.setTitle(null);
             dialogFragment.setText("This is message message message message message message message " +
                     "message message message message message message message message " +
                     "message message message message message message message");
@@ -142,11 +148,14 @@ public class MainActivity extends AppCompatActivity {
             dialogFragment.show(this);
         } else if (R.id.popup_dialog == id) {
             PopupMenuDialogFragment dialogFragment = new PopupMenuDialogFragment();
-            dialogFragment.setAlignType(PopupMenuDialogFragment.ALIGN_TYPE_THIS_TOP_WINDOW_RIGHT);
+            dialogFragment.setAlignType(PopupMenuDialogFragment.ALIGN_TYPE_THIS_BOTTOM_CENTER);
+            dialogFragment.setMarginTop(0);
+            dialogFragment.setMarginBottom(0);
             dialogFragment.setAlignView(view);
             dialogFragment.show(this);
         } else if (R.id.date_dialog1 == id) {
             DatePickerDialogFragment dialogFragment = new DatePickerDialogFragment();
+            dialogFragment.setTitle("选择时间");
             dialogFragment.setCurrentYear(1999);
             dialogFragment.setCurrentMonth(2);
             dialogFragment.setCurrentDay(29);
@@ -211,6 +220,20 @@ public class MainActivity extends AppCompatActivity {
                     dialogFragment.dismiss();
                     SimpleDateFormat sdf = new SimpleDateFormat("HH时mm分", Locale.getDefault());
                     showToast(sdf.format(dialogFragment.getCalendar().getTime()));
+                }
+            });
+            dialogFragment.show(this);
+        } else if (R.id.single_picker_dialog == id) {
+            SingleWheelPickerDialogFragment dialogFragment = new SingleWheelPickerDialogFragment();
+            dialogFragment.setValues(new String[]{"三天", "一周", "一个月", "一年", "三年"});
+            dialogFragment.setCurrentValue("一个");
+            dialogFragment.setTitle("选择周期");
+            dialogFragment.setLabel("期");
+            dialogFragment.setPositiveKeyClickListener(new IOnDialogKeyClickListener<SingleWheelPickerDialogFragment>() {
+                @Override
+                public void onClick(SingleWheelPickerDialogFragment dialogFragment) {
+                    dialogFragment.dismiss();
+                    showToast(dialogFragment.getSelectedValue());
                 }
             });
             dialogFragment.show(this);

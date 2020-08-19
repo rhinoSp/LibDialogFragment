@@ -1,16 +1,25 @@
 apply plugin: 'com.android.library'
+apply from: "aar.gradle"
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion rootProject.android.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion rootProject.android.minSdkVersion
+        targetSdkVersion rootProject.android.targetSdkVersion
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dataBinding {
+        enabled = true
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation rootProject.ext.appcompat
-    implementation rootProject.ext.LibWheelView
+    api rootProject.ext.dependencies["appcompat-v7"]
+
+    implementation(name: 'com.rhino.wheel-libWheelView-v1.0.5', ext: 'aar')
 }

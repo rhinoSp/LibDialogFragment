@@ -1,14 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion rootProject.android.compileSdkVersion
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-
-        applicationId rootProject.ext.apkApplicationId
-        versionName rootProject.ext.apkVersionName
-        versionCode rootProject.ext.apkVersionCode
+        minSdkVersion rootProject.android.minSdkVersion
+        targetSdkVersion rootProject.android.targetSdkVersion
+        versionName "1.0"
+        versionCode 1
+        applicationId "com.rhino.ddialog"
 
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -19,11 +18,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation rootProject.ext.appcompat
+    api rootProject.ext.dependencies["appcompat-v7"]
 
     api project(path: ':libDialogFragment')
+//    implementation(name: 'com.rhino.dialog-libDialogFragment-v1.1.19', ext: 'aar')
+    implementation(name: 'com.rhino.wheel-libWheelView-v1.0.5', ext: 'aar')
 }

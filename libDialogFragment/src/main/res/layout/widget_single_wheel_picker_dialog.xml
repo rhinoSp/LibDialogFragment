@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_rect_sol_white_tcor10"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+        <TextView
+            android:id="@+id/bt_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="取消"
+            android:textColor="@color/color_nor_black_pre_black40"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/black_85"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/bt_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="确定"
+            android:textColor="@color/color_nor_black_pre_black40"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_5" />
+
+    <com.rhino.wheel.WheelView
+        android:id="@+id/wheel_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:item_cyclic_enable="false"
+        app:item_min_alpha_value="0.1"
+        app:item_select_line_color="#44000000"
+        app:item_select_line_enable="true"
+        app:item_select_line_length_scale="1"
+        app:item_select_line_width="0.5dp"
+        app:item_text_color="#ff000000"
+        app:item_text_size="20sp"
+        app:item_vertical_height="34dp"
+        app:item_visible_count="5"
+        app:max_value="60"
+        app:min_value="1"
+        app:orientation="vertical" />
+
+</LinearLayout>

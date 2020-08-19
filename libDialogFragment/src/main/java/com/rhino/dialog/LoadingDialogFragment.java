@@ -1,6 +1,7 @@
 package com.rhino.dialog;
 
 import android.support.annotation.DrawableRes;
+import android.support.v4.app.FragmentActivity;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -8,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rhino.dialog.base.BaseDialogFragment;
+import com.rhino.dialog.impl.DefaultDialogListener;
+
+import java.lang.ref.WeakReference;
 
 
 /**
@@ -35,6 +39,9 @@ public class LoadingDialogFragment extends BaseDialogFragment {
      */
     public int mLoadingIconResId = R.mipmap.ic_dialog_loading;
 
+    public LoadingDialogFragment() {
+        setOutsideCancelable(false);
+    }
 
     @Override
     protected void setContent() {
@@ -74,9 +81,17 @@ public class LoadingDialogFragment extends BaseDialogFragment {
      */
     public LoadingDialogFragment setText(String text) {
         this.mLoadingText = text;
-        if (null != mLoadingDesc) {
-            mLoadingDesc.setText(text);
+        if (mActivity == null || mActivity.isFinishing()) {
+            return this;
         }
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (null != mLoadingDesc) {
+                    mLoadingDesc.setText(text);
+                }
+            }
+        });
         return this;
     }
 
@@ -88,9 +103,17 @@ public class LoadingDialogFragment extends BaseDialogFragment {
      */
     public LoadingDialogFragment setLoadingIconResId(@DrawableRes int resId) {
         this.mLoadingIconResId = resId;
-        if (null != mLoadingIcon) {
-            mLoadingIcon.setImageResource(mLoadingIconResId);
+        if (mActivity == null || mActivity.isFinishing()) {
+            return this;
         }
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (null != mLoadingIcon) {
+                    mLoadingIcon.setImageResource(mLoadingIconResId);
+                }
+            }
+        });
         return this;
     }
 
@@ -98,19 +121,73 @@ public class LoadingDialogFragment extends BaseDialogFragment {
      * Start rotate anim.
      */
     public void startRotateAnim() {
-        Animation anim = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        anim.setDuration(1000);
-        anim.setInterpolator(new LinearInterpolator());
-        anim.setRepeatMode(Animation.RESTART);
-        anim.setRepeatCount(-1);
-        mLoadingIcon.startAnimation(anim);
+        if (mActivity == null || mActivity.isFinishing()) {
+            return;
+        }
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Animation anim = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                anim.setDuration(1000);
+                anim.setInterpolator(new LinearInterpolator());
+                anim.setRepeatMode(Animation.RESTART);
+                anim.setRepeatCount(-1);
+                mLoadingIcon.startAnimation(anim);
+            }
+        });
     }
 
     /**
      * Stop rotate anim.
      */
     public void stopRotateAnim() {
-        mLoadingIcon.clearAnimation();
+        if (mActivity == null || mActivity.isFinishing()) {
+            return;
+        }
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mLoadingIcon.clearAnimation();
+            }
+        });
+    }
+
+    public static LoadingDialogHelper getHelper(FragmentActivity activity) {
+        return new LoadingDialogHelper(activity);
+    }
+
+    public static class LoadingDialogHelper {
+        private WeakReference<FragmentActivity> activity;
+        private LoadingDialogFragment dialogFragment;
+
+        public LoadingDialogHelper(FragmentActivity activity) {
+            this.activity = new WeakReference<>(activity);
+        }
+
+        public void showLoadingDialog() {
+            if (dialogFragment != null) {
+                dialogFragment.dismiss();
+                dialogFragment = null;
+            }
+            dialogFragment = new LoadingDialogFragment();
+            dialogFragment.show(activity.get());
+        }
+
+        public void dismissLoadingDialog() {
+            if (dialogFragment != null) {
+                dialogFragment.dismiss();
+            }
+        }
+
+        public void updateText(String text) {
+            if (dialogFragment != null) {
+                dialogFragment.setText(text);
+            }
+        }
+
+        public LoadingDialogFragment getLoadingDialogFragment() {
+            return dialogFragment;
+        }
     }
 
 }

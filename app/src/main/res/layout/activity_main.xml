@@ -116,6 +116,15 @@
             android:onClick="onViewClick"
             android:text="date dialog(HH:mm)" />
 
+        <Button
+            android:id="@+id/single_picker_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:onClick="onViewClick"
+            android:text="single picker dialog" />
+
 
     </LinearLayout>
 </ScrollView>

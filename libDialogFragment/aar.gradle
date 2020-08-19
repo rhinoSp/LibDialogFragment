@@ -1,0 +1,39 @@
+/**
+ * 【使用须知】
+ * ## 该脚本用于拷贝打包好的aar到指定目录，并重命名，同名会自动覆盖。
+ */
+
+/**
+ * aar包命名参数，参考：com.rhino.ui-libBaseUi-v1.2.6.aar
+ */
+ext.aarOutPutDir = "${rootDir}/repositories"
+ext.aarPackageName = "com.rhino.dialog"
+ext.aarArtifactId = "libDialogFragment"
+ext.aarVersionName = "1.1"
+ext.aarVersionCode = 25
+
+afterEvaluate {
+    project.tasks.findAll {
+        if (it.name.startsWith("assemble") && it.name.endsWith("Release"))
+            android.libraryVariants.all { variant ->
+                if (variant.buildType.name == "release") {
+                    // aar打包完成，复制到指定目录
+                    variant.assemble.doLast {
+                        variant.outputs.all { output ->
+                            def aarOutputFileName = "${aarPackageName}-${aarArtifactId}-v${aarVersionName}.${aarVersionCode}.aar"
+                            new File(aarOutPutDir, aarOutputFileName).delete()
+                            copy {
+                                from output.outputFile
+                                into aarOutPutDir
+                                rename { String fileName ->
+                                    fileName.replace(output.outputFile.getName(), aarOutputFileName)
+                                }
+                            }
+                            println '输出文件路径：' + new File(aarOutPutDir, aarOutputFileName).getAbsolutePath()
+                        }
+                    }
+                }
+            }
+    }
+}
+

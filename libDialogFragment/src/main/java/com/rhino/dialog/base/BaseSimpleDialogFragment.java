@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -451,6 +452,13 @@ public abstract class BaseSimpleDialogFragment extends BaseDialogFragment {
      */
     public BaseSimpleDialogFragment setTitle(String text) {
         this.mTitleText = text;
+        if (TextUtils.isEmpty(text)) {
+            mTitleVisibility = View.GONE;
+            mTitleBottomLineVisibility = View.GONE;
+        } else {
+            mTitleVisibility = View.VISIBLE;
+            mTitleBottomLineVisibility = View.VISIBLE;
+        }
         if (null != mTvTitle) {
             mTvTitle.setText(text);
         }

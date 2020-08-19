@@ -3,6 +3,8 @@ package com.rhino.dialog.base;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -24,6 +26,7 @@ import android.widget.FrameLayout;
 import com.rhino.dialog.R;
 import com.rhino.dialog.impl.IOnDialogListener;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 
 
@@ -95,6 +98,14 @@ public abstract class BaseDialogFragment extends DialogFragment {
      * Align this view.
      */
     public View mAlignView;
+    /**
+     * Align x.
+     */
+    public float mAlignX = -1;
+    /**
+     * Align x.
+     */
+    public float mAlignY = -1;
 
     /**
      * The parent view.
@@ -138,6 +149,10 @@ public abstract class BaseDialogFragment extends DialogFragment {
      */
     public int mWindowHeight = WindowManager.LayoutParams.WRAP_CONTENT;
     /**
+     * Whether can be canceled.
+     */
+    public boolean mCancelable = true;
+    /**
      * Whether can be canceled when touch outside dialog.
      */
     public boolean mOutsideCancelable = true;
@@ -145,7 +160,33 @@ public abstract class BaseDialogFragment extends DialogFragment {
      * The Window.
      */
     public Window mWindow;
+    /**
+     * This
+     */
+    public FragmentActivity mActivity;
+    /**
+     * This
+     */
+    public BaseDialogFragment mDialogFragment;
 
+    /**
+     * MyHandler
+     */
+    private MyHandler mHandler;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivity = getActivity();
+        mDialogFragment = this;
+        mHandler = new MyHandler(this);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mActivity = null;
+    }
 
     /**
      * Set the parent view.
@@ -155,16 +196,18 @@ public abstract class BaseDialogFragment extends DialogFragment {
     protected abstract void setContent();
 
     /**
+     * Init the view.
+     */
+    protected abstract void initView();
+
+    /**
      * Init the data.
      *
      * @return true success, false failed
      */
-    protected abstract boolean initData();
-
-    /**
-     * Init the view.
-     */
-    protected abstract void initView();
+    protected boolean initData() {
+        return true;
+    }
 
     public BaseDialogFragment() {
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AnimationScaleAlphaDialog);
@@ -253,30 +296,11 @@ public abstract class BaseDialogFragment extends DialogFragment {
     @Override
     public void setCancelable(boolean cancelable) {
         super.setCancelable(cancelable);
+        this.mCancelable = cancelable;
+    }
+
+    public void setOutsideCancelable(boolean cancelable) {
         this.mOutsideCancelable = cancelable;
-    }
-
-    @Override
-    public void dismiss() {
-        if (this.getDialog() != null && this.getDialog().isShowing() && this.getDialog().getOwnerActivity() != null && !this.getDialog().getOwnerActivity().isFinishing()) {
-            super.dismissAllowingStateLoss();
-        }
-    }
-
-    /**
-     * Show this dialog.
-     *
-     * @param activity FragmentActivity
-     */
-    public void show(FragmentActivity activity) {
-        if (null != activity && !activity.isFinishing() && (null == this.getDialog() || !this.getDialog().isShowing())) {
-            hideSoftInputFromWindow(activity);
-            setFieldValue(this, "mDismissed", false);
-            setFieldValue(this, "mShownByMe", true);
-            FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-            ft.add(this, this.getClass().getName());
-            ft.commitAllowingStateLoss();
-        }
     }
 
     /**
@@ -295,7 +319,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
             mWindow.getDecorView().setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    if (mOutsideCancelable && event.getAction() == MotionEvent.ACTION_UP) {
+                    if (mCancelable && mOutsideCancelable && event.getAction() == MotionEvent.ACTION_UP) {
                         dismiss();
                         return true;
                     }
@@ -307,6 +331,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
 
     /**
      * Set the align view.
+     *
      * @param view view
      */
     public void setAlignView(View view) {
@@ -315,6 +340,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
 
     /**
      * Set the align type.
+     *
      * @param type type ALIGN_TYPE_XXX
      */
     public void setAlignType(int type) {
@@ -325,7 +351,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
      * Layout the parent view when need align.
      */
     public void layoutParentViewWhenNeedAlign() {
-        if (mAlignView == null) {
+        if (mAlignView == null && (mAlignX == -1 || mAlignY == -1)) {
             return;
         }
         if (mParentViewWidth <= 0 || mParentViewHeight <= 0) {
@@ -352,40 +378,45 @@ public abstract class BaseDialogFragment extends DialogFragment {
         int topMargin = 0;
         int leftMargin = 0;
         int[] alignViewLocation = new int[2];
-        mAlignView.getLocationOnScreen(alignViewLocation);
+        if (mAlignView != null) {
+            mAlignView.getLocationOnScreen(alignViewLocation);
+        } else {
+            alignViewLocation[0] = (int) mAlignX;
+            alignViewLocation[1] = (int) mAlignY;
+        }
         setWindowGravity(Gravity.TOP | Gravity.START);
         switch (mAlignType) {
             case ALIGN_TYPE_THIS_BOTTOM:
                 leftMargin = 0;
-                topMargin = this.mMarginTop + alignViewLocation[1] - this.getStatusBarHeight(this.getContext()) + this.mAlignView.getHeight();
+                topMargin = this.mMarginTop + alignViewLocation[1] - getStatusBarHeight(mActivity) + mAlignView.getHeight();
                 break;
             case ALIGN_TYPE_THIS_BOTTOM_WINDOW_LEFT:
                 leftMargin = mMarginRightOrLeft + alignViewLocation[0];
-                topMargin = mMarginTop + alignViewLocation[1] - getStatusBarHeight(getContext()) + mAlignView.getHeight();
+                topMargin = mMarginTop + alignViewLocation[1] - getStatusBarHeight(mActivity) + mAlignView.getHeight();
                 break;
             case ALIGN_TYPE_THIS_BOTTOM_CENTER:
                 leftMargin = alignViewLocation[0] + mAlignView.getWidth() / 2 - mParentViewWidth / 2;
-                topMargin = mMarginTop + alignViewLocation[1] - getStatusBarHeight(getContext()) + mAlignView.getHeight();
+                topMargin = mMarginTop + alignViewLocation[1] - getStatusBarHeight(mActivity) + mAlignView.getHeight();
                 break;
             case ALIGN_TYPE_THIS_BOTTOM_WINDOW_RIGHT:
                 leftMargin = alignViewLocation[0] + mAlignView.getWidth() - mMarginRightOrLeft - mParentViewWidth;
-                topMargin = mMarginTop + alignViewLocation[1] - getStatusBarHeight(getContext()) + mAlignView.getHeight();
+                topMargin = mMarginTop + alignViewLocation[1] - getStatusBarHeight(mActivity) + mAlignView.getHeight();
                 break;
             case ALIGN_TYPE_THIS_TOP:
                 leftMargin = 0;
-                topMargin = alignViewLocation[1] - this.getStatusBarHeight(this.getContext()) - this.mParentViewHeight - this.mMarginBottom;
+                topMargin = alignViewLocation[1] - getStatusBarHeight(mActivity) - mParentViewHeight - mMarginBottom;
                 break;
             case ALIGN_TYPE_THIS_TOP_WINDOW_LEFT:
                 leftMargin = mMarginRightOrLeft + alignViewLocation[0];
-                topMargin = alignViewLocation[1] - getStatusBarHeight(getContext()) - mParentViewHeight - mMarginBottom;
+                topMargin = alignViewLocation[1] - getStatusBarHeight(mActivity) - mParentViewHeight - mMarginBottom;
                 break;
             case ALIGN_TYPE_THIS_TOP_CENTER:
                 leftMargin = alignViewLocation[0] + mAlignView.getWidth() / 2 - mParentViewWidth / 2;
-                topMargin = alignViewLocation[1] - getStatusBarHeight(getContext()) - mParentViewHeight - mMarginBottom;
+                topMargin = alignViewLocation[1] - getStatusBarHeight(mActivity) - mParentViewHeight - mMarginBottom;
                 break;
             case ALIGN_TYPE_THIS_TOP_WINDOW_RIGHT:
                 leftMargin = alignViewLocation[0] + mAlignView.getWidth() - mMarginRightOrLeft - mParentViewWidth;
-                topMargin = alignViewLocation[1] - getStatusBarHeight(getContext()) - mParentViewHeight - mMarginBottom;
+                topMargin = alignViewLocation[1] - getStatusBarHeight(mActivity) - mParentViewHeight - mMarginBottom;
                 break;
             default:
                 break;
@@ -394,8 +425,8 @@ public abstract class BaseDialogFragment extends DialogFragment {
         params.topMargin = topMargin;
         params.leftMargin = leftMargin;
         params.width = mParentViewWidth;
-        params.height = mParentViewHeight + topMargin > getScreenHeight(getContext()) - getStatusBarHeight(getContext())
-                ? getScreenHeight(getContext()) - getStatusBarHeight(getContext()) - topMargin - mMarginTop
+        params.height = mParentViewHeight + topMargin > getScreenHeight(mActivity) - getStatusBarHeight(mActivity)
+                ? getScreenHeight(mActivity) - getStatusBarHeight(mActivity) - topMargin - mMarginTop
                 : mParentViewHeight;
     }
 
@@ -424,6 +455,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
 
     /**
      * Set the window view width.
+     *
      * @param width width {@link WindowManager.LayoutParams}
      */
     public void setWindowWidth(int width) {
@@ -432,6 +464,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
 
     /**
      * Set the window view height.
+     *
      * @param height height {@link WindowManager.LayoutParams}
      */
     public void setWindowHeight(int height) {
@@ -440,6 +473,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
 
     /**
      * Set the parent view width.
+     *
      * @param width width
      */
     public void setParentViewWidth(int width) {
@@ -448,6 +482,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
 
     /**
      * Set the parent view height.
+     *
      * @param height height
      */
     public void setParentViewHeight(int height) {
@@ -456,6 +491,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
 
     /**
      * Set the popup window margin bottom.
+     *
      * @param mMarginBottom the popup window margin bottom.
      */
     public void setMarginBottom(int mMarginBottom) {
@@ -464,6 +500,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
 
     /**
      * Set the popup window margin top.
+     *
      * @param mMarginTop the popup window margin top.
      */
     public void setMarginTop(int mMarginTop) {
@@ -472,6 +509,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
 
     /**
      * Set the right or left margin of popup window.
+     *
      * @param mMarginRightOrLeft the right or left margin of popup window.
      */
     public void setMarginRightOrLeft(int mMarginRightOrLeft) {
@@ -484,7 +522,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
      * @param activity FragmentActivity
      */
     public void hideSoftInputFromWindow(FragmentActivity activity) {
-        if (null == activity) {
+        if (activity == null) {
             return;
         }
         View view = activity.getWindow().peekDecorView();
@@ -498,33 +536,44 @@ public abstract class BaseDialogFragment extends DialogFragment {
     }
 
     /**
-     * get the status height
+     * Show this dialog.
      *
-     * @param ctx the context
-     * @return the status bar height
+     * @param activity FragmentActivity
      */
-    public int getStatusBarHeight(Context ctx) {
-        int result = 0;
-        int resourceId = ctx.getResources().getIdentifier("status_bar_height",
-                "dimen", "android");
-        if (resourceId > 0) {
-            result = ctx.getResources().getDimensionPixelSize(resourceId);
+    public void show(FragmentActivity activity) {
+        if (null == activity || activity.isFinishing()) {
+            return;
         }
-        return result;
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                hideSoftInputFromWindow(activity);
+                if (!activity.isFinishing() && (null == getDialog() || !getDialog().isShowing())) {
+                    setFieldValue(this, "mDismissed", false);
+                    setFieldValue(this, "mShownByMe", true);
+                    FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+                    ft.add(BaseDialogFragment.this, getClass().getName());
+                    // for Exception "Can not perform this action after onSaveInstanceState with DialogFragment"
+                    ft.commitAllowingStateLoss();
+                }
+            }
+        });
     }
 
     /**
-     * get screen height
-     *
-     * @param ctx the context
-     * @return the screen height
+     * Dismiss this dialog.
      */
-    @SuppressWarnings("deprecation")
-    public static int getScreenHeight(Context ctx) {
-        WindowManager manager = (WindowManager) ctx
-                .getSystemService(Context.WINDOW_SERVICE);
-        Display display = manager.getDefaultDisplay();
-        return display.getHeight();
+    @Override
+    public void dismiss() {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (getDialog() != null && getDialog().isShowing()) {
+                    // for Exception "Can not perform this action after onSaveInstanceState with DialogFragment"
+                    dismissAllowingStateLoss();
+                }
+            }
+        }, 100);
     }
 
     /**
@@ -639,47 +688,109 @@ public abstract class BaseDialogFragment extends DialogFragment {
     /**
      * Deal the click listener.
      *
-     * @param v the click view
+     * @param view the click view
      */
-    protected void baseOnClickListener(View v) {
+    protected void baseOnClickListener(View view) {
     }
 
     /**
      * Deal the long click listener.
      *
-     * @param v the long click view
+     * @param view the long click view
      */
-    protected boolean baseOnLongClickListener(View v) {
+    protected boolean baseOnLongClickListener(View view) {
         return false;
     }
 
     /**
-     * Get filed
+     * get the status height
+     *
+     * @param ctx the context
+     * @return the status bar height
      */
+    public static int getStatusBarHeight(Context ctx) {
+        int result = 0;
+        int resourceId = ctx.getResources().getIdentifier("status_bar_height",
+                "dimen", "android");
+        if (resourceId > 0) {
+            result = ctx.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    /**
+     * get screen height
+     *
+     * @param ctx the context
+     * @return the screen height
+     */
+    @SuppressWarnings("deprecation")
+    public static int getScreenHeight(Context ctx) {
+        WindowManager manager = (WindowManager) ctx
+                .getSystemService(Context.WINDOW_SERVICE);
+        Display display = manager.getDefaultDisplay();
+        return display.getHeight();
+    }
+
+    /**
+     * Get the field obtain super class
+     *
+     * @param object    Object
+     * @param fieldName the field name
+     * @return
+     */
+    @Nullable
     public static Field getDeclaredField(Object object, String fieldName) {
         Field field = null;
-        Class clazz = object.getClass();
-        while(clazz != Object.class) {
+        Class<?> clazz = object.getClass();
+        for (; clazz != Object.class; clazz = clazz.getSuperclass()) {
             try {
-                field = clazz.getDeclaredField(fieldName);
+                if (clazz != null) {
+                    field = clazz.getDeclaredField(fieldName);
+                }
                 return field;
-            } catch (Exception var5) {
-                clazz = clazz.getSuperclass();
+            } catch (Exception e) {
             }
         }
         return null;
     }
 
     /**
-     * Set filed value
+     * Set field value.
+     *
+     * @param object    Object
+     * @param fieldName the field name
+     * @param value     the value of field
      */
     public static void setFieldValue(Object object, String fieldName, Object value) {
-        Field field = getDeclaredField(object, fieldName);
-        field.setAccessible(true);
         try {
-            field.set(object, value);
-        } catch (IllegalAccessException | IllegalArgumentException var5) {
-            var5.printStackTrace();
+            Field field = getDeclaredField(object, fieldName);
+            if (field != null) {
+                field.setAccessible(true);
+                field.set(object, value);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
+    public void handleOsMessage(@NonNull Message data) {
+    }
+
+    public static class MyHandler extends Handler {
+        private WeakReference<BaseDialogFragment> reference;
+
+        public MyHandler(BaseDialogFragment o) {
+            this.reference = new WeakReference(o);
+        }
+
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            BaseDialogFragment o = (BaseDialogFragment) this.reference.get();
+            if (null != o) {
+                o.handleOsMessage(msg);
+            }
+        }
+    }
+
 }
