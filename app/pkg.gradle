@@ -1,0 +1,44 @@
+/**
+ * 签名参数
+ */
+ext.signKeystorePath = 'demo.keystore'
+ext.signKeyAlias = 'demo.keystore'
+ext.signKsPass = '123456'
+ext.signKeyPass = '123456'
+
+/**
+ * 输出APK文件信息
+ */
+ext.apkFilePrefix = 'app'
+ext.apkVersionName = '1.0'
+ext.apkVersionCode = 1
+ext.apkOutPutDir = "${rootDir}/outPutApk"
+
+static def buildDate() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("GMT+08:00"))
+}
+
+afterEvaluate {
+    project.tasks.findAll {
+        if (it.name.startsWith("assemble") && it.name.endsWith("Release"))
+            android.applicationVariants.all { variant ->
+                if (variant.buildType.name == "release") {
+                    // aar打包完成，复制到指定目录
+                    variant.assemble.doLast {
+                        variant.outputs.all { output ->
+                            def apkOutputFileName = "${apkFilePrefix}-v${apkVersionName}.${apkVersionCode}-${buildDate()}.apk"
+                            new File(apkOutPutDir, apkOutputFileName).delete()
+                            copy {
+                                from output.outputFile
+                                into apkOutPutDir
+                                rename { String fileName ->
+                                    fileName.replace(output.outputFile.getName(), apkOutputFileName)
+                                }
+                            }
+                            println '输出文件路径：' + new File(apkOutPutDir, apkOutputFileName).getAbsolutePath()
+                        }
+                    }
+                }
+            }
+    }
+}

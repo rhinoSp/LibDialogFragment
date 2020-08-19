@@ -1,21 +1,41 @@
 apply plugin: 'com.android.application'
+apply from: "pkg.gradle"
 
 android {
     compileSdkVersion rootProject.android.compileSdkVersion
     defaultConfig {
         minSdkVersion rootProject.android.minSdkVersion
         targetSdkVersion rootProject.android.targetSdkVersion
-        versionName "1.0"
-        versionCode 1
+        versionCode apkVersionCode
+        versionName apkVersionName
         applicationId "com.rhino.ddialog"
 
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        keystore {
+            storeFile file(signKeystorePath)
+            storePassword signKsPass
+            keyAlias signKeyAlias
+            keyPassword signKeyPass
+        }
+    }
     buildTypes {
         release {
+            signingConfig signingConfigs.keystore
+            //混淆
             minifyEnabled false
+            //对齐操作，使得我们的程序在Android系统中运行得更快
+            zipAlignEnabled true
+            //移除无用的resource文件 必须和minifyEnabled一起使用
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.keystore
         }
     }
     compileOptions {
