@@ -10,7 +10,7 @@ ext.aarOutPutDir = "${rootDir}/repositories"
 ext.aarPackageName = "com.rhino.dialog"
 ext.aarArtifactId = "libDialogFragment"
 ext.aarVersionName = "1.1"
-ext.aarVersionCode = 25
+ext.aarVersionCode = 26
 
 afterEvaluate {
     project.tasks.findAll {

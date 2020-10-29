@@ -52,6 +52,5 @@ dependencies {
     api rootProject.ext.dependencies["appcompat-v7"]
 
     api project(path: ':libDialogFragment')
-//    implementation(name: 'com.rhino.dialog-libDialogFragment-v1.1.19', ext: 'aar')
-    implementation(name: 'com.rhino.wheel-libWheelView-v1.0.5', ext: 'aar')
+    implementation 'com.github.rhinoSp:LibWheelView:v1.0.6'
 }
