@@ -8,7 +8,7 @@ android {
         targetSdkVersion rootProject.android.targetSdkVersion
         versionCode apkVersionCode
         versionName apkVersionName
-        applicationId "com.rhino.ddialog"
+        applicationId "com.rhino.dialog.demo"
 
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

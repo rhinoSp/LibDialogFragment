@@ -1,5 +1,8 @@
 apply plugin: 'com.android.library'
 apply from: "aar.gradle"
+//jitpack要求
+apply plugin: 'com.github.dcendents.android-maven'
+group = 'com.github.rhinoSp'//com.github.<用户名>(也就是你GtiHub上的地址)
 
 android {
     compileSdkVersion rootProject.android.compileSdkVersion
