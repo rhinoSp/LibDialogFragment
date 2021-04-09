@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="theme_color">#ff334d87</color>
+    <color name="theme_color_light">#88334d87</color>
+
     <!-- NORMAL -->
     <color name="transparent">#00000000</color>
 	<color name="yellow">#FFFFFF00</color>

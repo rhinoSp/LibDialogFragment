@@ -25,6 +25,7 @@ import android.widget.FrameLayout;
 
 import com.rhino.dialog.R;
 import com.rhino.dialog.impl.IOnDialogListener;
+import com.rhino.log.LogUtils;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
@@ -770,7 +771,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
                 field.set(object, value);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
     }
 

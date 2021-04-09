@@ -23,5 +23,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api rootProject.ext.dependencies["appcompat-v7"]
+    implementation 'com.github.rhinoSp:LibLog:v1.9.2'
     implementation 'com.github.rhinoSp:LibWheelView:v1.0.6'
 }

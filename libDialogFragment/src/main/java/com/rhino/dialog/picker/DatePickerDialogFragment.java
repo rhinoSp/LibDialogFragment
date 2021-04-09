@@ -35,6 +35,7 @@ public class DatePickerDialogFragment extends BaseDialogFragment {
     public static final int STYLE_YYYY_MM_DD = 3;
     public static final int STYLE_HH_MM_SS = 4;
     public static final int STYLE_HH_MM = 5;
+
     public int mStyle = STYLE_YYYY_MM_DD_HH_MM_SS;
     public int mYearCount = 30;
     public boolean mYearOnlyCurrentBefore = false;

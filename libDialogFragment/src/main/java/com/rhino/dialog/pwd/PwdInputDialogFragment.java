@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 
 import com.rhino.dialog.R;
 import com.rhino.dialog.base.BaseSimpleDialogFragment;
+import com.rhino.log.LogUtils;
 
 
 /**
@@ -385,7 +386,7 @@ public class PwdInputDialogFragment extends BaseSimpleDialogFragment {
         try {
             return Integer.parseInt(getPasswordString());
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.e(e);
         }
         return -1;
     }
