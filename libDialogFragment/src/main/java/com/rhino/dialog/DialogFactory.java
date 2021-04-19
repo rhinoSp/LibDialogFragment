@@ -287,7 +287,7 @@ public class DialogFactory {
             }
         });
         listDialog.setPositiveButton("关闭", null);
-        listDialog.setNegativeButton("清空日志文件", (dialog1, which) -> {
+        listDialog.setNegativeButton("清空文件", (dialog1, which) -> {
             buildSysMessageDialog(activity, true, "即将删除所有文件，确认删除？", "删除", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
