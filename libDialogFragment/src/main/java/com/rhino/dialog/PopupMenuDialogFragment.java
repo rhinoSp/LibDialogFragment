@@ -1,8 +1,9 @@
 package com.rhino.dialog;
 
 
-import android.support.v4.app.DialogFragment;
 import android.widget.LinearLayout;
+
+import androidx.fragment.app.DialogFragment;
 
 import com.rhino.dialog.base.BaseDialogFragment;
 
@@ -38,7 +39,6 @@ public class PopupMenuDialogFragment extends BaseDialogFragment {
     protected void initView() {
         mLlContainer = findSubViewById(R.id.popup_menu_dialog_ll);
     }
-
 
 
 }

@@ -9,9 +9,10 @@ ext.signKeyPass = '123456'
 /**
  * 输出APK文件信息
  */
-ext.apkFilePrefix = 'app'
+ext.apkApplicationId = 'com.rhino.dialog.demo'
 ext.apkVersionName = '1.0'
 ext.apkVersionCode = 1
+ext.apkFilePrefix = 'app'
 ext.apkOutPutDir = "${rootDir}/outPutApk"
 
 static def buildDate() {

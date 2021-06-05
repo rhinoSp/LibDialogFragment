@@ -1,29 +1,26 @@
 package com.rhino.dialog.demo;
 
 import android.graphics.Color;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.rhino.dialog.BottomSelectDialogFragment;
 import com.rhino.dialog.DialogFactory;
 import com.rhino.dialog.EditDialogFragment;
 import com.rhino.dialog.LoadingDialogFragment;
-import com.rhino.dialog.MsgDialogFragment;
 import com.rhino.dialog.PopupMenuDialogFragment;
 import com.rhino.dialog.TipsDialogFragment;
+import com.rhino.dialog.impl.IOnDialogKeyClickListener;
 import com.rhino.dialog.picker.DatePickerDialogFragment;
 import com.rhino.dialog.picker.SingleWheelPickerDialogFragment;
 import com.rhino.dialog.pwd.PwdInputDialogFragment;
-import com.rhino.dialog.impl.IOnDialogKeyClickListener;
-import com.rhino.dialog.impl.DefaultDialogListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 

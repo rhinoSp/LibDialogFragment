@@ -2,11 +2,12 @@ package com.rhino.dialog;
 
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.ColorInt;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.ColorInt;
 
 import com.rhino.dialog.base.BaseDialogFragment;
 import com.rhino.dialog.impl.IOnDialogKeyClickListener;

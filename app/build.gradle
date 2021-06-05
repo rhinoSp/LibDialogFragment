@@ -2,16 +2,17 @@ apply plugin: 'com.android.application'
 apply from: "pkg.gradle"
 
 android {
-    compileSdkVersion rootProject.android.compileSdkVersion
+    compileSdkVersion pkgCompileSdkVersion
     defaultConfig {
-        minSdkVersion rootProject.android.minSdkVersion
-        targetSdkVersion rootProject.android.targetSdkVersion
+        minSdkVersion pkgMinSdkVersion
+        targetSdkVersion pkgTargetSdkVersion
+
+        applicationId apkApplicationId
         versionCode apkVersionCode
         versionName apkVersionName
-        applicationId "com.rhino.dialog.demo"
 
         multiDexEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
         keystore {
@@ -49,8 +50,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.appcompat
+    implementation rootProject.ext.material
+    implementation rootProject.ext.constraintlayout
+
+    implementation rootProject.ext.rhinoLog
+    implementation rootProject.ext.rhinoWheelView
 
     api project(path: ':libDialogFragment')
-    implementation 'com.github.rhinoSp:LibWheelView:v1.0.6'
 }

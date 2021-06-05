@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.support.annotation.ColorInt;
-import android.support.v4.app.FragmentActivity;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.view.Gravity;
@@ -13,6 +11,9 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import androidx.annotation.ColorInt;
+import androidx.fragment.app.FragmentActivity;
 
 import com.rhino.dialog.base.BaseSimpleDialogFragment;
 

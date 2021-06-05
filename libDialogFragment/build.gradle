@@ -5,11 +5,10 @@ apply plugin: 'com.github.dcendents.android-maven'
 group = 'com.github.rhinoSp'//com.github.<用户名>(也就是你GtiHub上的地址)
 
 android {
-    compileSdkVersion rootProject.android.compileSdkVersion
-
+    compileSdkVersion pkgCompileSdkVersion
     defaultConfig {
-        minSdkVersion rootProject.android.minSdkVersion
-        targetSdkVersion rootProject.android.targetSdkVersion
+        minSdkVersion pkgMinSdkVersion
+        targetSdkVersion pkgTargetSdkVersion
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -22,7 +21,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api rootProject.ext.dependencies["appcompat-v7"]
-    implementation 'com.github.rhinoSp:LibLog:v1.9.2'
-    implementation 'com.github.rhinoSp:LibWheelView:v1.0.6'
+    implementation rootProject.ext.appcompat
+    implementation rootProject.ext.material
+    implementation rootProject.ext.constraintlayout
+
+    implementation rootProject.ext.rhinoLog
+    implementation rootProject.ext.rhinoWheelView
 }

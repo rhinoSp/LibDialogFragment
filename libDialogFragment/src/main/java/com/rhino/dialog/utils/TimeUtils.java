@@ -1,7 +1,6 @@
 package com.rhino.dialog.utils;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 
 import com.rhino.log.LogUtils;
 

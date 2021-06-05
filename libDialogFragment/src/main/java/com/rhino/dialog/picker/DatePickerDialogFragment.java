@@ -1,17 +1,17 @@
 package com.rhino.dialog.picker;
 
 import android.content.res.ColorStateList;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+
 import com.rhino.dialog.R;
 import com.rhino.dialog.base.BaseDialogFragment;
-import com.rhino.dialog.base.BaseSimpleDialogFragment;
 import com.rhino.dialog.impl.IOnDialogKeyClickListener;
 import com.rhino.wheel.WheelView;
 
@@ -361,7 +361,6 @@ public class DatePickerDialogFragment extends BaseDialogFragment {
         }
         return this;
     }
-
 
 
     /**

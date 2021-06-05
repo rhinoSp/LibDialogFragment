@@ -1,9 +1,10 @@
 package com.rhino.dialog;
 
 import android.graphics.Color;
-import android.support.annotation.ColorInt;
 import android.view.Gravity;
 import android.widget.TextView;
+
+import androidx.annotation.ColorInt;
 
 import com.rhino.dialog.base.BaseSimpleDialogFragment;
 

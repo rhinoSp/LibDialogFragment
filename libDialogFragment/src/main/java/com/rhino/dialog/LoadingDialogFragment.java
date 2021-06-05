@@ -1,15 +1,15 @@
 package com.rhino.dialog;
 
-import android.support.annotation.DrawableRes;
-import android.support.v4.app.FragmentActivity;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
+import androidx.fragment.app.FragmentActivity;
+
 import com.rhino.dialog.base.BaseDialogFragment;
-import com.rhino.dialog.impl.DefaultDialogListener;
 
 import java.lang.ref.WeakReference;
 

@@ -3,12 +3,6 @@ package com.rhino.dialog.pwd;
 
 import android.content.Context;
 import android.os.Handler;
-import android.support.annotation.ColorInt;
-import android.support.annotation.Dimension;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -16,6 +10,13 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.Dimension;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 
 import com.rhino.dialog.R;
 import com.rhino.dialog.base.BaseSimpleDialogFragment;
@@ -185,6 +186,7 @@ public class PwdInputDialogFragment extends BaseSimpleDialogFragment {
 
     /**
      * Set the TextWatcher.
+     *
      * @param textWatcher TextWatcher
      */
     public PwdInputDialogFragment setTextWatcher(TextWatcher textWatcher) {
