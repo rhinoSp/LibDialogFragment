@@ -15,19 +15,69 @@ ext.apkVersionCode = 1
 ext.apkFilePrefix = 'app'
 ext.apkOutPutDir = "${rootDir}/outPutApk"
 
+/**
+ * 360加固jar包路径，首次使用需要先下载pc软件登录，并在pc端配置好签名文件
+ */
+ext.jiaguJarPath = 'D:\\ForWork\\360jiagubao_windows_64\\jiagu\\jiagu.jar'
+
+/**
+ * 获取当前日期
+ */
 static def buildDate() {
-    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("GMT+08:00"))
+    return new Date().format("yyyy-MM-dd-HH-mm", TimeZone.getTimeZone("GMT+08:00"))
+}
+
+/**
+ * 执行cmd命令
+ */
+def execute360JiaguCmd(cmd, isPrint = false) {
+    def p = cmd.execute(null, new File(new File(jiaguJarPath).parentFile, "java\\bin\\"))
+    def br = new BufferedReader(new InputStreamReader(p.getInputStream()))
+    def line
+    while ((line = br.readLine()) != null) {
+        if (isPrint)
+            println(line)
+    }
+    if (p.exitValue() != 0) {
+        br = new BufferedReader(new InputStreamReader(p.getErr()))
+        while ((line = br.readLine()) != null) {
+            System.err.println(line)
+        }
+        throw new Exception("执行加固命令：" + cmd + ";失败")
+    }
+}
+
+/**
+ * 开启360加固
+ */
+def startJiagu360(appFilePath) {
+    println "开始360加固"
+    println "待加固APK路径=" + appFilePath.getAbsolutePath()
+    if (!appFilePath.exists()) {
+        println "没有找到APK文件！"
+        return//throw new FileNotFoundException("没有找到APK文件！")
+    }
+    def cmdBase = 'java -Dfile.encoding=utf-8 -jar ' + jiaguJarPath
+    def cmdJiagu = cmdBase + ' -jiagu ' + appFilePath.getAbsolutePath() + ' ' + appFilePath.getParentFile().getAbsolutePath() + ' -autosign'
+    execute360JiaguCmd(cmdBase + " -update", true)
+    execute360JiaguCmd(cmdJiagu, true)
+    println "加固结束"
 }
 
 afterEvaluate {
+    List<String> outputfiles = new ArrayList<>()
     project.tasks.findAll {
         if (it.name.startsWith("assemble") && it.name.endsWith("Release"))
             android.applicationVariants.all { variant ->
                 if (variant.buildType.name == "release") {
-                    // aar打包完成，复制到指定目录
+                    // 打包完成，复制到指定目录
                     variant.assemble.doLast {
                         variant.outputs.all { output ->
-                            def apkOutputFileName = "${apkFilePrefix}-v${apkVersionName}.${apkVersionCode}-${buildDate()}.apk"
+                            if (outputfiles.contains(output.outputFile)) {
+                                return
+                            }
+                            outputfiles.add(output.outputFile)
+                            def apkOutputFileName = "${apkFilePrefix}${it.name.replaceAll("assemble", "").replaceAll("Release", "")}-v${apkVersionName}-${apkVersionCode}-${buildDate()}.apk"
                             new File(apkOutPutDir, apkOutputFileName).delete()
                             copy {
                                 from output.outputFile
@@ -36,6 +86,7 @@ afterEvaluate {
                                     fileName.replace(output.outputFile.getName(), apkOutputFileName)
                                 }
                             }
+                            startJiagu360(new File(apkOutPutDir, apkOutputFileName))
                             println '输出文件路径：' + new File(apkOutPutDir, apkOutputFileName).getAbsolutePath()
                         }
                     }
