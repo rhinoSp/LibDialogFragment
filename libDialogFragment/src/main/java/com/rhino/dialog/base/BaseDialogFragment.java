@@ -174,14 +174,12 @@ public abstract class BaseDialogFragment extends DialogFragment {
     /**
      * MyHandler
      */
-    private MyHandler mHandler;
+    public MyHandler mHandler;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mActivity = getActivity();
-        mDialogFragment = this;
-        mHandler = new MyHandler(this);
     }
 
     @Override
@@ -213,6 +211,8 @@ public abstract class BaseDialogFragment extends DialogFragment {
 
     public BaseDialogFragment() {
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AnimationScaleAlphaDialog);
+        mDialogFragment = this;
+        mHandler = new MyHandler(this);
     }
 
     @Override
