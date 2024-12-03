@@ -1,10 +1,12 @@
 package com.rhino.dialog;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
 
 import com.rhino.dialog.base.BaseSimpleDialogFragment;
 
@@ -68,6 +70,13 @@ public class MsgDialogFragment extends BaseSimpleDialogFragment {
      */
     private int mPaddingBottom = DEFAULT_TEXT_PADDING_BOTTOM;
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            dismiss();
+        }
+    }
 
     @Override
     protected void setContent() {

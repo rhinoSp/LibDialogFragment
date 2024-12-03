@@ -1,6 +1,7 @@
 package com.rhino.dialog.picker;
 
 import android.content.res.ColorStateList;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.rhino.dialog.R;
@@ -113,6 +115,14 @@ public class DatePickerDialogFragment extends BaseDialogFragment {
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AnimationTranBottomDialog);
         setWindowGravity(Gravity.BOTTOM);
         setWindowWidth(WindowManager.LayoutParams.MATCH_PARENT);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            dismiss();
+        }
     }
 
     @Override

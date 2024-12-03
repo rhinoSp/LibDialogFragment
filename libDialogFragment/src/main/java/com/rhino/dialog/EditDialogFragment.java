@@ -3,6 +3,7 @@ package com.rhino.dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 import com.rhino.dialog.base.BaseSimpleDialogFragment;
@@ -112,6 +114,13 @@ public class EditDialogFragment extends BaseSimpleDialogFragment {
      */
     private int mEditTextHeight;
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            dismiss();
+        }
+    }
 
     @Override
     protected void setContent() {

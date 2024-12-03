@@ -9,7 +9,7 @@
 ext.aarOutPutDir = "${rootDir}/repositories"
 ext.aarPackageName = "com.rhino.dialog"
 ext.aarArtifactId = "libDialogFragment"
-ext.aarVersionName = "1.9"
+ext.aarVersionName = "2.0"
 ext.aarVersionCode = 2
 
 afterEvaluate {

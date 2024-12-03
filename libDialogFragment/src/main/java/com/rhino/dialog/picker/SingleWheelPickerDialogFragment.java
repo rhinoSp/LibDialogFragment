@@ -1,19 +1,24 @@
 package com.rhino.dialog.picker;
 
 import android.content.res.ColorStateList;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.rhino.dialog.R;
 import com.rhino.dialog.base.BaseDialogFragment;
 import com.rhino.dialog.impl.IOnDialogKeyClickListener;
+import com.rhino.log.LogUtils;
 import com.rhino.wheel.WheelView;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -94,6 +99,14 @@ public class SingleWheelPickerDialogFragment extends BaseDialogFragment {
     }
 
     @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            dismiss();
+        }
+    }
+
+    @Override
     protected void setContent() {
         setContentView(R.layout.widget_single_wheel_picker_dialog);
     }
@@ -103,10 +116,12 @@ public class SingleWheelPickerDialogFragment extends BaseDialogFragment {
         mTvTitle = findSubViewById(R.id.tv_title);
         mTvNegativeKey = findSubViewById(R.id.bt_cancel);
         mTvPositiveKey = findSubViewById(R.id.bt_ok);
-        mWheelView = findSubViewById(R.id.wheel_view);
-        mWheelView.setDisplayedValues(mValues);
-        mWheelView.setLabel(mLabel);
-        mWheelView.setValue(Arrays.asList(mValues).indexOf(mCurrentValue) + 1);
+        if (mValues != null) {
+            mWheelView = findSubViewById(R.id.wheel_view);
+            mWheelView.setDisplayedValues(mValues);
+            mWheelView.setLabel(mLabel);
+            mWheelView.setValue(Arrays.asList(mValues).indexOf(mCurrentValue) + 1);
+        }
         setTitle(mTitleText);
         setTitleTextSize(mTitleTextSize);
         setTitleTextColor(mTitleTextColor);

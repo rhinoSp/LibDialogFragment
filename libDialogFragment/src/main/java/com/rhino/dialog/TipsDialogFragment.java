@@ -2,12 +2,14 @@ package com.rhino.dialog;
 
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
 
 import com.rhino.dialog.base.BaseDialogFragment;
 import com.rhino.dialog.impl.IOnDialogKeyClickListener;
@@ -115,6 +117,13 @@ public class TipsDialogFragment extends BaseDialogFragment {
      */
     protected ColorStateList mPositiveKeyTextColors = null;
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            dismiss();
+        }
+    }
 
     @Override
     protected void setContent() {

@@ -2,6 +2,7 @@ package com.rhino.dialog.pwd;
 
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -106,6 +107,14 @@ public class PwdInputDialogFragment extends BaseSimpleDialogFragment {
         setTitleBottomLineColor(0x2A000000);
         setKeyTopLineColor(0x2A000000);
         setKeyCenterLineColor(0x2A000000);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            dismiss();
+        }
     }
 
     @Override

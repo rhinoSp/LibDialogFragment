@@ -1,5 +1,6 @@
 package com.rhino.dialog;
 
+import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -7,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 import com.rhino.dialog.base.BaseDialogFragment;
@@ -41,6 +43,14 @@ public class LoadingDialogFragment extends BaseDialogFragment {
 
     public LoadingDialogFragment() {
         setOutsideCancelable(false);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            dismiss();
+        }
     }
 
     @Override
